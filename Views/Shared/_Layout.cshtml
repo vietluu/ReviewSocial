@@ -27,7 +27,7 @@
                         </li>
                          
                     </ul> *@
-            <form method="get" asp-action="Search" class="form-inline w-25">
+            <form method="get" asp-action="Search" class="form-inline col-lg-3 col-md-5 col-sm-12 pt-sm-3 pt-md-0">
                 <div class="input-group">
   <input type="text" class="form-control shadow-none" placeholder="search..." aria-label="Example text with button addon" aria-describedby="button-addon1">
   <div class="input-group-prepend">
@@ -69,6 +69,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/libraryCustom.js"></script>
+
 
     
     @await RenderSectionAsync("Scripts", required: false)

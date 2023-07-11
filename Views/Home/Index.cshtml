@@ -1,29 +1,26 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+<script src="~/assets/vendor/ckeditor5-build-classic/ckeditor.js"></script>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container p-2">
    <div class="row">
      <div class="col-lg-8 col-md-12 activity p-2 newsfeed">
-        
-            <div class="panel panel-default mb-4 p-2 bg-white rounded-3">
-                <form class="panel-body"  enctype="multipart/form-data">
-                    <textarea class="w-100 panel__input" rows="5" ></textarea>
-                        <div contenteditable="true" id="text-editor"></div>
 
+            <div class="panel panel-default mb-4 p-2 bg-white rounded-3">
+                <form class="panel-body-feed"  enctype="multipart/form-data">
+                    @* <textarea class="w-100 panel__input" rows="5" ></textarea>
+                        <div contenteditable="true" id="text-editor"></div> *@
+                            <textarea name='feed' id="editor"></textarea>
+
+                         <script>
+                 ClassicEditor.create( document.querySelector( '#editor' ) ).catch( error => {
+                console.error( error );
+            } );
+                </script>
                 </form>
-                <div class="panel-footer">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-link"><i class="fa fa-map-marker"></i></button>
-                        <button type="button" class="btn btn-link"><i class="fa fa-users"></i></button>
-                        <label for="image-file" class="btn btn-link "><i class="fa fa-image"></i></label>
-                        <input type="file" multiple id="image-file" accept="image/jpeg" class="d-none"></input>
-                        <button type="button" class="btn btn-link"><i class="fa fa-video-camera"></i></button>
-                        <button type="button" class="btn btn-link"><i class="fa fa-calendar-o"></i></button>
-                    </div>
-                    
-                    <div class="pull-right mt-1">
+                <div class="panel-footer d-flex justify-content-end mt-1 p-1">
+                    <div class="">
                         <button type="button" class="btn btn-success">submit</button>
                     </div>  
                 </div>
