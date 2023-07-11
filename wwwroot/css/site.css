@@ -20,3 +20,139 @@ html {
 body {
   margin-bottom: 60px;
 }
+body{
+  background:#eee;
+  }
+  
+  .form-control {
+      border: 1px solid #d1d4d7;
+      -webkit-border-radius: 2px;
+      -moz-border-radius: 2px;
+      border-radius: 2px;
+      color: #3d3f42;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+  }
+  
+  .activity .panel .panel-heading {
+      line-height: 20px;
+      height: 70px;
+      padding-top: 15px
+  }
+  
+  .activity .panel .panel-heading img {
+      height: 40px;
+      margin: 0 15px 15px 0;
+      float: left
+  }
+  
+  .activity .panel .panel-heading .small {
+      color: #d1d4d7
+  }
+  
+  .activity .panel .panel-heading .pull-right {
+      font-size: 12px;
+      color: #d1d4d7
+  }
+  
+  .activity .panel .panel-heading .pull-right i {
+      font-size: 14px
+  }
+  
+  .activity .panel .panel-body .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      padding-top: 30px;
+      height: 0;
+      overflow: hidden
+  }
+  
+  .activity .panel .panel-body .video-container iframe,
+  .activity .panel .panel-body .video-container object,
+  .activity .panel .panel-body .video-container embed {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%
+  }
+  
+  .activity .panel .panel-body .actions {
+      background: #f8f9fa;
+      margin: 15px -15px 0 -15px;
+      padding: 0 20px 0 10px;
+      line-height: 50px;
+      font-size: 12px
+  }
+  
+  .activity .panel .panel-body .actions .btn {
+      font-size: 12px;
+      text-decoration: none
+  }
+  
+  .activity .panel .panel-body .media-object {
+      width: 30px
+  }
+  
+  .activity .panel .panel-body .media .media-body .media-heading {
+      font-weight: 500
+  }
+  
+  .activity .panel .panel-body .media .media-body .small {
+      color: #d1d4d7
+  }
+  
+  .activity .panel .panel-body .media .media-body p {
+      margin-top: 10px;
+      font-size: 12px
+  }
+  a {
+    color: #0077cc;
+    text-decoration: none;
+    color: rgb(0,0,0,0.8);
+  }
+
+  body{
+    height: 100vh;
+    overflow: hidden;
+  }
+  .newsfeed{
+    height: 100vh;
+    overflow-y:scroll ;
+  }
+  .newsfeed::-webkit-scrollbar{
+    width: 1px;
+  }
+  .sidebar__box{
+    padding: 10px;
+  }
+  .sidebar__item{
+    padding:  0 7px;
+    font: 500;
+    font-size: 1.3rem;
+    margin: 10px 0 ;
+  }
+  .panel-body{
+    padding: 10px;
+    border: 1px solid rgb(0,0,0,0.2);
+    border-radius: 10px;
+  }
+  #text-editor img{
+    max-width: 170px;
+    width: 100%;
+    height: auto; 
+    padding: 5px;
+  }
+  .panel__input{
+    border: none;
+    resize: none;
+    height: 100%;
+    min-height: 60px;
+    outline: none;
+    max-height: 200px;
+    overflow-y:scroll ;
+  }
+  .panel__input::-webkit-scrollbar{
+    width: 0;
+  }

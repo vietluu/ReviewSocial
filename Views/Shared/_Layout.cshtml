@@ -18,14 +18,38 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    @* <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                    </ul>
+                         
+                    </ul> *@
+            <form method="get" asp-action="Search" class="form-inline w-25">
+                <div class="input-group">
+  <input type="text" class="form-control shadow-none" placeholder="search..." aria-label="Example text with button addon" aria-describedby="button-addon1">
+  <div class="input-group-prepend">
+    <button class="btn btn-outline-secondary"  type="button" id="button-addon1"><i class="fa fa-search"></i></button>
+  </div>
+</div>
+
+            </form>
+                     <div id="user-info">
+        @if (User.Identity.IsAuthenticated) 
+        {
+            <span>Welcome, @User.Identity.Name</span>
+            <form method="post" asp-action="Logout" class="form-inline">
+                <button type="submit" class="btn btn-link">Logout</button>
+            </form>
+        }
+        else 
+        {
+            //linkName - action - controller ->
+            @Html.ActionLink("Login", "Login", "Account", null, new { @class = "nav-link" })
+        }
+    </div>
                 </div>
             </div>
         </nav>
@@ -44,6 +68,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/libraryCustom.js"></script>
+
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
