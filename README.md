@@ -6,7 +6,7 @@ This is the README documentation for the Reviewsocial project running on the ASP
 To run the Reviewsocial project, you will need:
 
 - Visual Studio or Visual Studio Code.
-- .NET Core SDK 3.1 or later.
+- .NET Core SDK 7.0 or later.
 - SQL Server.
 - Installation
 ### To install the Reviewsocial project, follow these steps:
