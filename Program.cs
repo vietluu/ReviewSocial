@@ -1,7 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using ReviewSocial.Database;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<Db_ReviewSocialContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DbReviewSocial") ?? throw new InvalidOperationException("Connection string not found.")));
 builder.Services.AddSession(options =>
     {
         options.IdleTimeout = TimeSpan.FromSeconds(10);//Thời gian giữ session
