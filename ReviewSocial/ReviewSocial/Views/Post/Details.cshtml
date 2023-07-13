@@ -22,7 +22,17 @@
                 <div class="panel-heading">
                     <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-rounded">
                     <div class="pull-right text-right">
-                        <i class="fa fa-ellipsis-h" aria-hidden="true"></i><br>
+                        <div class="dropdown">
+                            @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
+                            <button class="btn btn-secondary bg-transparent text-dark border-0" type="button" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                            <div class="dropdown-menu" style="margin-left: -155px;">
+                                <a class="dropdown-item" href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Chỉnh sửa bài viết</a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Xóa bài</a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-window-close" aria-hidden="true"></i> Ẩn bài viết</a>
+                            </div>
+                        </div>
                     </div>
                     <div><strong>John Doe</strong></div>
                 </div>

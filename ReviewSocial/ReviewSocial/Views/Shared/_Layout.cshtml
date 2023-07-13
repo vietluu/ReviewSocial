@@ -15,7 +15,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#" style="width: 35px;">
-                    <img src="~/img/logo2.jpg" class="w-100 img-circle" />
+                    <img src="~/img/logo.jpg" class="w-100 img-circle" />
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -39,23 +39,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Link</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </li>
                         <li class="nav-item">
-                            <a class="nav-link disabled">Disabled</a>
+                            <a class="nav-link" href="#">Disabled</a>
                         </li>
                     </ul>
 
-                    <div id="user-info">
+                    <div id="user-info" style="display: contents">
                         @if (User.Identity.IsAuthenticated)
                         {
                             <span>Welcome, @User.Identity.Name</span>
@@ -65,8 +54,9 @@
                         }
                         else
                         {
-                            <a href="#" class="nav-link pl-0">Login</a>
-                            //linkName - action - controller ->
+                                <img src="~/img/avatar.jpg" style="width: 25px;" />
+                            <a href="#" class="nav-link pl-0 ml-2" title="Đăng nhập"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+                //linkName - action - controller ->
                             @*@Html.ActionLink("Login", "Login", "Account", null, new { @class = "nav-link" })*@
                         }
                     </div>

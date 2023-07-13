@@ -21,7 +21,7 @@ async function insertImage(file) {
     }
 }
 
-CKEDITOR.replace("content");
+CKEDITOR.replace("content-home");
 
 // Listen for image selection and insert into text editor
 imageInput.addEventListener("change", async function (e) {
