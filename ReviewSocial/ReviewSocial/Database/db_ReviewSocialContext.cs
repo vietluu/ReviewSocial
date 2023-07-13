@@ -75,7 +75,9 @@ namespace ReviewSocial.Database
 
                 entity.Property(e => e.CategoryId).HasColumnName("category_id");
 
-                entity.Property(e => e.Content).HasColumnName("content");
+                entity.Property(e => e.Content)
+                    .IsRequired()
+                    .HasColumnName("content");
 
                 entity.Property(e => e.CreatedDate)
                     .HasColumnType("datetime")
@@ -86,10 +88,12 @@ namespace ReviewSocial.Database
                 entity.Property(e => e.Thumbnail)
                     .HasMaxLength(250)
                     .IsUnicode(false)
+                    .IsRequired()
                     .HasColumnName("thumbnail");
 
                 entity.Property(e => e.Title)
                     .HasMaxLength(150)
+                    .IsRequired()
                     .HasColumnName("title");
 
                 entity.Property(e => e.TotalReport).HasColumnName("totalReport");
@@ -97,6 +101,8 @@ namespace ReviewSocial.Database
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.Property(e => e.View).HasColumnName("view");
+
+                entity.Property(e => e.Like).HasColumnName("like");
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Posts)
