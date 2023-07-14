@@ -1,0 +1,125 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_AdminLayout";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+
+                <div class="row element-button">
+                    <div class="col-sm-2">
+                        <a class="btn btn-add btn-sm" href="form-add-nhan-vien.html" title="Thêm">
+                            <i class="fa fa-plus"></i>
+                            Thêm người dùng mới
+                        </a>
+                    </div>
+                </div>
+                <table class="table table-hover table-bordered" cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                        <tr>
+                            <th width="10"><input type="checkbox" id="all"></th>
+                            <th>Mã người dùng</th>
+                            <th width="150">username</th>
+                            <th >Email</th> 
+                            <th width="50">Ảnh đại diện</th>
+                            <th>Ngày tham gia</th>
+                            <th>Quyền</th>
+                            <th>Trạng thái</th>
+                            <th width="100">Tính năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                            <td>#CD12837</td>
+                            <td>LêLê</td>
+                            <td>nguyenle123@gamil.com </td>
+                            <td><img class="img-card-person" src="~/img/avatar.jpg" alt=""></td>
+                            <td>12/02/1999</td>
+                            <td>Admin</td>
+                            <td>Bình thường</td>
+                            <td class="table-td-center">
+                                <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                        onclick="myFunction(this)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                                        data-toggle="modal" data-target="#ModalUP">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                            <td>#CD12837</td>
+                            <td>LêLê</td>
+                            <td>nguyenle123@gamil.com </td>
+                            <td><img class="img-card-person" src="~/img/avatar.jpg" alt=""></td>
+                            <td>12/02/1999</td>
+                            <td>User</td>
+                            <td>Bình thường</td>
+                            <td class="table-td-center">
+                                <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                        onclick="myFunction(this)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                                        data-toggle="modal" data-target="#ModalUP">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                            <td>#CD12837</td>
+                            <td>Lê123</td>
+                            <td>nguyenle1235@gamil.com </td>
+                            <td><img class="img-card-person" src="~/img/avatar.jpg" alt=""></td>
+                            <td>12/02/1998</td>
+                            <td>User</td>
+                            <td>Bình thường</td>
+                            <td class="table-td-center">
+                                <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                        onclick="myFunction(this)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                                        data-toggle="modal" data-target="#ModalUP">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link">&laquo;</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">1</a>
+                    </li>
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li>
+                    <li class="page-item" aria-current="page">
+                        <a class="page-link" href="#">4</a>
+                    </li>
+                    <li class="page-item" aria-current="page">
+                        <a class="page-link" href="#">5</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">&raquo;</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

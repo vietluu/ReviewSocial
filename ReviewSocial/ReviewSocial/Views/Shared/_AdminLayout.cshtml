@@ -1,0 +1,183 @@
+﻿@{
+    var url = Context.Request.Path;
+    string activeHome = url == "/admin" ? "active" : "";
+    string activePost = url == "/admin/post" ? "active" : "";
+    string activeCategory = url == "/admin/category" ? "active" : "";
+    string activeUser = url == "/admin/user" ? "active" : "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ReviewSocial</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="~/lib/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="~/css/site-admin.css">
+    <!-- Font-icon css-->
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>*@
+
+</head>
+<body onload="time()" class="app sidebar-mini rtl">
+    <!-- Navbar-->
+    <header class="app-header">
+        <!-- Sidebar toggle button-->
+        <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+        <!-- Navbar Right Menu-->
+        <ul class="app-nav">
+            <!-- User Menu-->
+            <li>
+                <a class="app-nav__item" href="/index.html" title="Đăng xuất"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i></a>
+            </li>
+        </ul>
+    </header>
+
+    <!-- Sidebar menu-->
+    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+    <aside class="app-sidebar">
+        <div class="app-sidebar__user">
+            <img class="app-sidebar__user-avatar" src="~/img/avatar.jpg" width="50px" alt="User Image">
+            <div>
+                <p class="app-sidebar__user-name"><b>Võ Trường</b></p>
+                <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
+            </div>
+        </div>
+        <hr>
+        <ul class="app-menu">
+            <li>
+                <a class="app-menu__item @activeHome" href="/admin">
+                    <i class="fa fa-home fa-lg" aria-hidden="true"></i>
+                    <span class="app-menu__label ml-2">Trang chủ</span>
+                </a>
+            </li>
+            <li>
+                <a class="app-menu__item @activePost" href="/admin/post">
+                    <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
+                    <span class="app-menu__label ml-2">Quản lý bài viết</span>
+                </a>
+            </li>
+            <li>
+                <a class="app-menu__item @activeCategory" href="/admin/category">
+                    <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
+                    <span class="app-menu__label ml-2">Quản lý danh mục</span>
+                </a>
+            </li>
+            <li>
+                <a class="app-menu__item @activeUser" href="/admin/user">
+                    <i class="fa fa-users fa-lg" aria-hidden="true"></i>
+                    <span class="app-menu__label ml-2">Quản lý người dùng</span>
+                </a>
+            </li>
+            <li>
+                <a class="app-menu__item" href="#">
+                    <i class="fa fa-cogs fa-lg" aria-hidden="true"></i>
+                    <span class="app-menu__label ml-2">Đổi mật khẩu</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="app-content">
+        @RenderBody()
+
+        <div class="text-center" style="font-size: 13px">
+            <p>
+                <b>
+                    <script type="text/javascript">
+                       // document.write(new Date().getFullYear());
+                    </script> 
+                </b>
+            </p>
+        </div>
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/ckeditor/ckeditor.js"></script>
+
+    @*<script src="js/popper.min.js"></script>*@
+    <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+    <script src="~/js/site-admin.js"></script>
+    @*<script src="js/plugins/pace.min.js"></script>*@
+
+    @*<script type="text/javascript">
+        var data = {
+            labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6"],
+            datasets: [{
+                label: "Dữ liệu đầu tiên",
+                fillColor: "rgba(255, 213, 59, 0.767), 212, 59)",
+                strokeColor: "rgb(255, 212, 59)",
+                pointColor: "rgb(255, 212, 59)",
+                pointStrokeColor: "rgb(255, 212, 59)",
+                pointHighlightFill: "rgb(255, 212, 59)",
+                pointHighlightStroke: "rgb(255, 212, 59)",
+                data: [20, 59, 90, 51, 56, 100]
+            },
+            {
+                label: "Dữ liệu kế tiếp",
+                fillColor: "rgba(9, 109, 239, 0.651)  ",
+                pointColor: "rgb(9, 109, 239)",
+                strokeColor: "rgb(9, 109, 239)",
+                pointStrokeColor: "rgb(9, 109, 239)",
+                pointHighlightFill: "rgb(9, 109, 239)",
+                pointHighlightStroke: "rgb(9, 109, 239)",
+                data: [48, 48, 49, 39, 86, 10]
+            }
+            ]
+        };
+        var ctxl = $("#lineChartDemo").get(0).getContext("2d");
+        var lineChart = new Chart(ctxl).Line(data);
+
+        var ctxb = $("#barChartDemo").get(0).getContext("2d");
+        var barChart = new Chart(ctxb).Bar(data);
+    </script>
+    <script type="text/javascript">
+        //Thời Gian
+        function time() {
+            var today = new Date();
+            var weekday = new Array(7);
+            weekday[0] = "Chủ Nhật";
+            weekday[1] = "Thứ Hai";
+            weekday[2] = "Thứ Ba";
+            weekday[3] = "Thứ Tư";
+            weekday[4] = "Thứ Năm";
+            weekday[5] = "Thứ Sáu";
+            weekday[6] = "Thứ Bảy";
+            var day = weekday[today.getDay()];
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1;
+            var yyyy = today.getFullYear();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            nowTime = h + " giờ " + m + " phút " + s + " giây";
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+            today = day + ', ' + dd + '/' + mm + '/' + yyyy;
+            tmp = '<span class="date"> ' + today + ' - ' + nowTime +
+                '</span>';
+            document.getElementById("clock").innerHTML = tmp;
+            clocktime = setTimeout("time()", "1000", "Javascript");
+
+            function checkTime(i) {
+                if (i < 10) {
+                    i = "0" + i;
+                }
+                return i;
+            }
+        }
+    </script>*@
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
