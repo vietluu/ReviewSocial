@@ -2,6 +2,7 @@
 
 namespace ReviewSocial.Controllers
 {
+    [Route("auth")]
     public class AuthController : Controller
     {
         public IActionResult Login()
@@ -13,6 +14,9 @@ namespace ReviewSocial.Controllers
         {
             return View();
         }
+        private readonly string view = "~/Views/Auth";
+
+        [Route("changepassword")]
         public IActionResult ChangePassword()
         {
             return View();

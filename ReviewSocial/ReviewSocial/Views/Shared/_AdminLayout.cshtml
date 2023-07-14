@@ -4,6 +4,8 @@
     string activePost = url == "/admin/post" ? "active" : "";
     string activeCategory = url == "/admin/category" ? "active" : "";
     string activeUser = url == "/admin/user" ? "active" : "";
+    string activechange = url == "/auth/changepassword" ? "active" : "";
+
 }
 
 <!DOCTYPE html>
@@ -73,7 +75,7 @@
                 </a>
             </li>
             <li>
-                <a class="app-menu__item" href="#">
+                <a class="app-menu__item @activechange" href="/auth/changepassword">
                     <i class="fa fa-cogs fa-lg" aria-hidden="true"></i>
                     <span class="app-menu__label ml-2">Đổi mật khẩu</span>
                 </a>

@@ -115,19 +115,26 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group  col-md-12">
-                        <span class="thong-tin-thanh-toan">
-                            <h5>Tạo danh mục mới</h5>
-                        </span>
+                        <div class="modal-header">
+                            <h5 style="color:black">Thêm danh mục mới</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" style="color:black; font-size: 20px">&times;</span>
+                            </button>
+                        </div>
                     </div>
                     <div class="form-group col-md-12">
                         <label class="control-label">Nhập tên danh mục mới</label>
                         <input class="form-control" type="text" required="">
                     </div>
                 </div>
-                <br>
-                <button class="btn btn-save" type="button" style="text-align:right">Lưu lại</button>
-                <a class="btn btn-cancel" style="text-align:right" data-dismiss="modal" href="#">Hủy bỏ</a>
-                <br>
+             @*   <br>
+                <button class="btn btn-save" type="button">Lưu lại</button>
+                <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                <br>*@
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
             <div class="modal-footer">
             </div>

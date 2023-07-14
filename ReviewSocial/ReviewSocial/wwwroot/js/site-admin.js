@@ -25,3 +25,5 @@
 	$("[data-toggle='tooltip']").tooltip();
 
 })();
+
+CKEDITOR.replace("content-post-admin");

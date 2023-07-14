@@ -54,7 +54,17 @@
                         }
                         else
                         {
-                                <img src="~/img/avatar.jpg" style="width: 25px;" />
+                            <div class="dropdown">
+                                @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
+                                <button class="btn btn-secondary bg-transparent text-dark border-0" type="button" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/img/avatar.jpg" style="width: 25px;" />
+                                </button>
+                                <div class="dropdown-menu" style="margin-left: -125px;">
+                                    <a class="dropdown-item" href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> Đăng xuất</a>
+                                    <a class="dropdown-item" href="#"><i class="fa fa-key" aria-hidden="true"></i> Đổi mật khẩu</a>
+                                </div>
+                            </div>
+                           @* <img src="~/img/avatar.jpg" style="width: 25px;" />*@
                             <a href="#" class="nav-link pl-0 ml-2" title="Đăng nhập"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
                 //linkName - action - controller ->
                             @*@Html.ActionLink("Login", "Login", "Account", null, new { @class = "nav-link" })*@
