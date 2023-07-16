@@ -122,7 +122,6 @@ namespace ReviewSocial.Database
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Avatar)
-                    .IsRequired()
                     .HasMaxLength(250)
                     .IsUnicode(false)
                     .HasColumnName("avatar");

@@ -2,14 +2,14 @@
 
 namespace ReviewSocial.Controllers.Admin
 {
-    [Route("admin")]
     public class UserManagementController : Controller
     {
         private readonly string view = "~/Views/Admin/UserManagement/";
-        [Route("user")]
+
+        [HttpGet]
         public IActionResult Index()
         {
-            return View(view+ "Index.cshtml");
+            return View(view + "Index.cshtml");
         }
     }
 }
