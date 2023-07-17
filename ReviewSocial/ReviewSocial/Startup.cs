@@ -115,6 +115,10 @@ namespace ReviewSocial
                     name: "User",
                     pattern: "user/profile",
                     defaults: new { controller = "User", action = "Profile" });
+                endpoints.MapControllerRoute(
+                    name: "User",
+                    pattern: "user/profile/edit",
+                    defaults: new { controller = "User", action = "EditProfile" });
                 #endregion
 
                 #region CategoryManagement

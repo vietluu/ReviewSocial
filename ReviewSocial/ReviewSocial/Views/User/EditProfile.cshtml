@@ -1,10 +1,12 @@
-﻿@*
+﻿@using Microsoft.AspNetCore.Http;
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Chỉnh sửa thông tin cá nhân";
     Layout = "";
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +27,7 @@
         }
 
         h1, h2, h3 {
-            font-family: 'Times New Roman', Times, serif cursive;
+            font-family: 'Kaushan Script', cursive;
         }
 
         .myform {
@@ -78,6 +80,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="row">
@@ -86,27 +89,45 @@
                     <div class="myform form ">
                         <div class="logo mb-3">
                             <div class="col-md-12 text-center">
-                                <h1>Đăng nhập</h1>
+                                <h1>Chỉnh sửa thông tin</h1>
                             </div>
                         </div>
-                        <form action="/login" method="post">
-                            @if (!string.IsNullOrEmpty(ViewBag.Message))
-                            {
-                                <p class="text-danger">@ViewBag.Message</p>
-                            }
-                            <div class="form-group">
+                        <form asp-action="EditProfile" method="post" name="editprofile" enctype="multipart/form-data">
+                            @*<div class="form-group">
                                 <label for="exampleInputEmail1">Email</label>
-                                <input type="email" name="email" class="form-control" id="email" value="" placeholder="Nhập email">
+                                <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
+                            </div>*@
+                            <div class="form-group">
+                                 <label for="exampleInputEmail1">Tên đăng nhập</label>
+                                @{
+                                    //var username = @User.Identity.Name == null ? "" : @User.Identity.Name;
+                                    var username = Context.Session.GetString("username") == null ? "" : Context.Session.GetString("username");
+                                }
+                                <input type="text" name="username" class="form-control" id="username" value="@username">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Mật khẩu</label>
-                                <input type="password" name="password" id="password" class="form-control" value="" placeholder="Nhập mật khẩu">
+                                <label for="exampleInputEmail1">Ảnh đại diện</label>
+                                <div class="input-group mb-3">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="imageAvatarFile" name="imageAvatarFile" aria-describedby="inputGroupFileAddon01">
+                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                    </div>
+                                </div>
+                                @{
+                                    var avatar = Context.Session.GetString("avatar") == null ? "/img/avatar.jpg" : "/img/" + Context.Session.GetString("avatar");
+                                }
+                                <img class="app-sidebar__user-avatar" src="@avatar" width="50px" alt="User Image">
+                            </div>
+                           @* <div class="form-group">
+                                <label for="exampleInputEmail1">Nhập lại mật khẩu</label>
+                                <input type="password" name="RePassword" id="repassword" class="form-control">
                             </div>
                             <div class="col-md-12 text-center ">
-                                <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Đăng nhập</button>
-                            </div>
+                                <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Đăng Ký</button>
+                            </div>*@
                             <div class="form-group mt-3">
-                                <p class="text-center">Không có tại khoản? <a href="/register" id="signup">Đăng ký tại đây</a></p>
+                                <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Chỉnh sửa</button>
+                                <p class="text-center"> <a href="/login" id="signup">Quay lại</a></p>
                             </div>
                         </form>
 
@@ -118,11 +139,13 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
 </body>
 </html>
+
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
