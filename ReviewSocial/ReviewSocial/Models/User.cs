@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -21,6 +22,9 @@ namespace ReviewSocial.Models
         public string Avatar { get; set; }
         public string Role { get; set; }
         public bool? Status { get; set; }
+        
+        [NotMapped]
+        public string RePassword { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Post> Posts { get; set; }

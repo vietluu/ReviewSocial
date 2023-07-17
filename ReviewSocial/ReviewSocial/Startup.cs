@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ReviewSocial.Database;
+using ReviewSocial.Repositories;
+using ReviewSocial.Repositories.Impl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +27,29 @@ namespace ReviewSocial
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        { 
+        {
+            services.AddDistributedMemoryCache();
+
+            services.AddHttpContextAccessor();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(option =>
+                {
+                    option.LoginPath = "/login";
+                    option.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                });
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             services.AddControllersWithViews();
             services.AddDbContext<db_ReviewSocialContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DbReviewSocial")));
+
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,13 +70,96 @@ namespace ReviewSocial
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                #region Auth
+                endpoints.MapControllerRoute(
+                    name: "login",
+                    pattern: "login",
+                    defaults: new { controller = "Auth", action = "Login" });
+                endpoints.MapControllerRoute(
+                    name: "logout",
+                    pattern: "logout",
+                    defaults: new { controller = "Auth", action = "Logout" });
+                endpoints.MapControllerRoute(
+                     name: "register",
+                     pattern: "register",
+                     defaults: new { controller = "Auth", action = "Register" });
+                endpoints.MapControllerRoute(
+                         name: "changepassword",
+                         pattern: "changepassword",
+                         defaults: new { controller = "Auth", action = "ChangePassword" });
+                #endregion
+
+                #region Post
+                endpoints.MapControllerRoute(
+                    name: "Post",
+                    pattern: "post",
+                    defaults: new { controller = "Post", action = "Index" });
+                endpoints.MapControllerRoute(
+                    name: "Post",
+                    pattern: "post/{id}",
+                    defaults: new { controller = "Auth", action = "Details" });
+                #endregion
+
+                #region User
+                endpoints.MapControllerRoute(
+                    name: "User",
+                    pattern: "user/profile",
+                    defaults: new { controller = "User", action = "Profile" });
+                #endregion
+
+                #region CategoryManagement
+                endpoints.MapControllerRoute(
+                    name: "CategoryManagement",
+                    pattern: "admin/category",
+                    defaults: new { controller = "CategoryManagement", action = "Index" });
+                endpoints.MapControllerRoute(
+                    name: "CategoryManagement",
+                    pattern: "admin/category/create",
+                    defaults: new { controller = "CategoryManagement", action = "Create" });
+                endpoints.MapControllerRoute(
+                    name: "CategoryManagement",
+                    pattern: "admin/category/{id}",
+                    defaults: new { controller = "CategoryManagement", action = "GetById" });
+                endpoints.MapControllerRoute(
+                    name: "CategoryManagement",
+                    pattern: "admin/category/update/{id}",
+                    defaults: new { controller = "CategoryManagement", action = "Update" });
+                endpoints.MapControllerRoute(
+                    name: "CategoryManagement",
+                    pattern: "admin/category/delete/{id}",
+                    defaults: new { controller = "CategoryManagement", action = "Delete" });
+                #endregion
+
+                #region HomeAdmin
+                endpoints.MapControllerRoute(
+                    name: "admin",
+                    pattern: "admin",
+                    defaults: new { controller = "HomeAdmin", action = "Index" });
+                #endregion
+
+                #region PostManagement
+                endpoints.MapControllerRoute(
+                    name: "PostManagement",
+                    pattern: "admin/post",
+                    defaults: new { controller = "PostManagement", action = "Index" });
+                #endregion
+
+                #region UserManagement
+                endpoints.MapControllerRoute(
+                    name: "UserManagement",
+                    pattern: "admin/user",
+                    defaults: new { controller = "UserManagement", action = "Index" });
+                #endregion
             });
         }
     }
