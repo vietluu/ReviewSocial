@@ -47,6 +47,7 @@ namespace ReviewSocial
             });
             services.AddControllersWithViews();
             services.AddDbContext<db_ReviewSocialContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DbReviewSocial")));
+            services.AddScoped<IPostRepository, PostRepository>();
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
