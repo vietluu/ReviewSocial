@@ -22,7 +22,7 @@ namespace ReviewSocial.Repositories.Impl
 
         public List<Post> GetAll()
         {
-           return _context.Posts.ToList();
+           return _context.Posts.Include(c => c.User).ToList();
         }
         public Post Create(Post post)
         {
@@ -33,7 +33,7 @@ namespace ReviewSocial.Repositories.Impl
 
         public Post GetById(int id)
         {
-            return _context.Posts.SingleOrDefault(c => c.Id == id);
+            return _context.Posts.Find(id);
         }
         public Post GetByTitle(string title)
         {
@@ -61,7 +61,8 @@ namespace ReviewSocial.Repositories.Impl
          public async Task<string> UploadFile(IFormFile file)
         {
 
-            var fileName = Path.GetFileName(file.FileName);
+           if(file.Name.Length > 0){
+             var fileName = Path.GetFileName(file.FileName);
             var filePath = Path.Combine("wwwroot", "img", fileName);
             if (!File.Exists(filePath))
             {
@@ -71,6 +72,10 @@ namespace ReviewSocial.Repositories.Impl
                 }
             }
             return $"img/{fileName}";
+           }
+           else{
+                return "";
+            }
         }
     }
 }

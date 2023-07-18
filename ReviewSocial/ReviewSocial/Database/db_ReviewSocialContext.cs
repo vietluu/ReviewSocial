@@ -102,8 +102,6 @@ namespace ReviewSocial.Database
 
                 entity.Property(e => e.View).HasColumnName("view");
 
-                entity.Property(e => e.Like).HasColumnName("like");
-
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Posts)
                     .HasForeignKey(d => d.CategoryId)

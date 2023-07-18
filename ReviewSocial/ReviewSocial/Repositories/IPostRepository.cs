@@ -15,7 +15,7 @@ namespace ReviewSocial.Repositories
         bool ExistsByTitle (string name);
         Post Create(Post post);
         void Update(Post post);
-        void Delete(Post category);
+        void Delete(Post post);
         Task<string> UploadFile(IFormFile file);
 
     }

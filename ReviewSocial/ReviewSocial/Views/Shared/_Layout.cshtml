@@ -32,7 +32,7 @@
                         @*<input class="form-control" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>*@
                     </form>
-                    <ul class="navbar-nav m-auto">
+                    @* <ul class="navbar-nav m-auto">
                         <li class="nav-item active">
                             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                         </li>
@@ -42,13 +42,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Disabled</a>
                         </li>
-                    </ul>
+                    </ul> *@
 
                     <div id="user-info" style="display: contents">
                         @if (User.Identity.IsAuthenticated)
                         {
                             <span>Welcome, @User.Identity.Name</span>
-                            <form method="post" asp-action="Logout" class="form-inline">
+                            <form method="post" asp-controller="Auth" asp-action="Logout" class="form-inline">
                                 <button type="submit" class="btn btn-link">Logout</button>
                             </form>
                         }
