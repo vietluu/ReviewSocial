@@ -31,9 +31,15 @@ namespace ReviewSocial.Repositories.Impl
             return _context.Users.SingleOrDefault(u => u.Email == email);
         }
 
-        public User Update(User user)
+        public User GetUserByEmailAndPassword(string email, string password)
         {
-            throw new System.NotImplementedException();
+            return _context.Users.SingleOrDefault(u =>u.Email == email && u.Password == password);
+        }
+
+        public void Update(User user)
+        {
+            _context.Users.Update(user);
+            _context.SaveChanges();
         }
     }
 }

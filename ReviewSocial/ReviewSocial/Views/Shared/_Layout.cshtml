@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using ReviewSocial.Repositories;
+@inject ICategoryRepository ICategoryRepository;
+@{
+    var categories = ICategoryRepository.GetAll();
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -32,41 +39,54 @@
                         @*<input class="form-control" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>*@
                     </form>
-                    @* <ul class="navbar-nav m-auto">
+                    <ul class="navbar-nav m-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/home">Trang chủ <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Disabled</a>
-                        </li>
-                    </ul> *@
+                        @foreach(var category in categories as List<Category>)
+                        {
+                           <li class="nav-item">
+                            <a class="nav-link" href="#">@category.Name</a>
+                           </li>
+                        }
+                        
+                    </ul>
 
                     <div id="user-info" style="display: contents">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <span>Welcome, @User.Identity.Name</span>
-                            <form method="post" asp-controller="Auth" asp-action="Logout" class="form-inline">
-                                <button type="submit" class="btn btn-link">Logout</button>
-                            </form>
+                            <div class="dropdown">
+                                @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
+                                <a href="/user/profile" class="text-decoration-none bg-transparent text-dark border-0">
+                                    <img src="~/img/avatar.jpg" style="width: 25px;" />
+                                </a>
+                                <span data-toggle="dropdown" aria-expanded="false">@User.Identity.Name</span>
+                                <div class="dropdown-menu" style="margin-left: -40px;">
+                                    <a class="dropdown-item" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Đăng xuất</a>
+                                    <a class="dropdown-item" href="/changepassword"><i class="fa fa-key" aria-hidden="true"></i> Đổi mật khẩu</a>
+                                </div>
+                            </div>
+                            @*<form method="post" asp-action="Logout" class="form-inline">
+                        <button type="submit" class="btn btn-link">Logout</button>
+                        </form>*@
+                            // <a href="#" class="nav-link pl-0 ml-2" title="Đăng nhập"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
                         }
                         else
                         {
-                            <div class="dropdown">
-                                @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
+                           @* <div class="dropdown">
+                                <div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>
                                 <button class="btn btn-secondary bg-transparent text-dark border-0" type="button" data-toggle="dropdown" aria-expanded="false">
                                     <img src="~/img/avatar.jpg" style="width: 25px;" />
                                 </button>
                                 <div class="dropdown-menu" style="margin-left: -125px;">
                                     <a class="dropdown-item" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Đăng xuất</a>
-                                    <a class="dropdown-item" href="#"><i class="fa fa-key" aria-hidden="true"></i> Đổi mật khẩu</a>
+                                    <a class="dropdown-item" href="/changepassword"><i class="fa fa-key" aria-hidden="true"></i> Đổi mật khẩu</a>
+                                   
                                 </div>
-                            </div>
-                           @* <img src="~/img/avatar.jpg" style="width: 25px;" />*@
-                            <a href="#" class="nav-link pl-0 ml-2" title="Đăng nhập"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
-                //linkName - action - controller ->
+                            </div>*@
+                            @* <img src="~/img/avatar.jpg" style="width: 25px;" />*@
+                            <a href="/login" class="nav-link pl-0 ml-2" title="Đăng nhập"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+                            @*  //linkName - action - controller ->*@
                             @*@Html.ActionLink("Login", "Login", "Account", null, new { @class = "nav-link" })*@
                         }
                     </div>

@@ -1,4 +1,5 @@
-﻿<link href="~/css/profile.css" rel="stylesheet">
+﻿@using Microsoft.AspNetCore.Http;
+<link href="~/css/profile.css" rel="stylesheet">
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -13,20 +14,22 @@
                         <div class="profile-header-content">
                             <!-- BEGIN profile-header-img -->
                             <div class="profile-header-img">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
+                                @{
+                                    var avatar = Context.Session.GetString("avatar") == null ? "/img/avatar.jpg" : "/img/" + Context.Session.GetString("avatar");
+                                }
+                                <img src="@avatar" alt="">
                             </div>
                             <!-- END profile-header-img -->
                             <!-- BEGIN profile-header-info -->
                             <div class="profile-header-info">
-                                <h4 class="m-t-10 m-b-5">Sean Ngu</h4>
-                                <p class="m-b-10">UXUI + Frontend Developer</p>
-                                <a href="#" class="btn btn-sm btn-info mb-2">Edit Profile</a>
+                                <h4 class="m-t-10 m-b-5">@User.Identity.Name</h4>
+                                <a href="/user/editprofile" class="btn btn-sm btn-info mb-2">Edit Profile</a>
                             </div>
                             <!-- END profile-header-info -->
                         </div>
                         <!-- END profile-header-content -->
                         <!-- BEGIN profile-header-tab -->
-                        <ul class="profile-header-tab nav nav-tabs">
+                        <ul class="profile-header-tab nav nav-tabs" style="visibility: hidden;">
                             <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-with-timeline-posts" target="__blank" class="nav-link_">POSTS</a></li>
                             <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-about" target="__blank" class="nav-link_">ABOUT</a></li>
                             <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/profile-photos" target="__blank" class="nav-link_">PHOTOS</a></li>

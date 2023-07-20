@@ -61,8 +61,9 @@ namespace ReviewSocial.Repositories.Impl
          public async Task<string> UploadFile(IFormFile file)
         {
 
-           if(file.Name.Length > 0){
-             var fileName = Path.GetFileName(file.FileName);
+           if(file != null){
+
+            var fileName = Path.GetFileName(file.FileName);
             var filePath = Path.Combine("wwwroot", "img", fileName);
             if (!File.Exists(filePath))
             {

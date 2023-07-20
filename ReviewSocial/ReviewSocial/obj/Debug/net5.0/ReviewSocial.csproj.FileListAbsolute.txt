@@ -161,3 +161,4 @@ D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\refint\ReviewSoci
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\ReviewSocial.pdb
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\ReviewSocial.genruntimeconfig.cache
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\ref\ReviewSocial.dll
+D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\User\EditProfile.cshtml.g.cs
