@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -27,6 +28,8 @@ namespace ReviewSocial.Models
         public string RePassword { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<Post> Posts { get; set; }
     }
 }

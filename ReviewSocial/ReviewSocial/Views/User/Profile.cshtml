@@ -1,4 +1,8 @@
-﻿@using Microsoft.AspNetCore.Http;
+﻿@using Microsoft.AspNetCore.Http
+@using ReviewSocial.Repositories
+@using System.Security.Claims;
+@model IEnumerable<Post>
+
 <link href="~/css/profile.css" rel="stylesheet">
 <div class="container">
     <div class="row">
@@ -48,216 +52,113 @@
                         <div class="tab-pane fade active show" id="profile-post">
                             <!-- begin timeline -->
                             <ul class="timeline">
-                                <li>
-                                    <!-- begin timeline-time -->
-                                    <div class="timeline-time">
-                                        <span class="date">today</span>
-                                        <span class="time">04:20</span>
-                                    </div>
-                                    <!-- end timeline-time -->
-                                    <!-- begin timeline-icon -->
-                                    <div class="timeline-icon">
-                                        <a href="javascript:;">&nbsp;</a>
-                                    </div>
-                                    <!-- end timeline-icon -->
-                                    <!-- begin timeline-body -->
-                                    <div class="timeline-body">
-                                        <div class="timeline-header">
-                                            <span class="userimage"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></span>
-                                            <span class="username"><a href="javascript:;">Sean Ngu</a> <small></small></span>
-                                            <div class="pull-right text-right">
-                                                <div class="dropdown">
-                                                    @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
-                                                    <button class="btn btn-secondary bg-transparent text-dark border-0" type="button" data-toggle="dropdown" aria-expanded="false">
-                                                        <i class="fa fa-ellipsis-h"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu" style="margin-left: -155px;">
-                                                        <a class="dropdown-item" href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Chỉnh sửa bài viết</a>
-                                                        <a class="dropdown-item" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Xóa bài</a>
-                                                        <a class="dropdown-item" href="#"><i class="fa fa-window-close" aria-hidden="true"></i> Ẩn bài viết</a>
+                                @{
+                                    var userId = int.Parse(User.FindFirstValue(ClaimTypes.Sid));
+                                }
+                                @if (Model.Where(i => i.User.Id == @userId).Count() != 0)
+                                {
+                                    @foreach (var item in Model.Where(i => i.User.Id == userId).OrderByDescending(i => i.CreatedDate))
+                                    {
+                                        <li>
+                                            <!-- begin timeline-time -->
+                                            <div class="timeline-time">
+                                                @{
+                                                    DateTime createdDate = DateTime.Parse(item.CreatedDate.ToString());
+                                                }
+                                                <span class="date">@createdDate.Date.ToString("dd/MM/yyyy")</span>
+                                                <span class="time">@createdDate.Hour:@createdDate.Minute</span>
+                                            </div>
+                                            <!-- end timeline-time -->
+                                            <!-- begin timeline-icon -->
+                                            <div class="timeline-icon">
+                                                <a href="javascript:;">&nbsp;</a>
+                                            </div>
+                                            <!-- end timeline-icon -->
+                                            <!-- begin timeline-body -->
+                                            <div class="timeline-body">
+                                                <div class="timeline-header">
+                                                    @{
+                                                        var avatarpost = Context.Session.GetString("avatar") == null ? "/img/avatar.jpg" : "/img/" + Context.Session.GetString("avatar");
+                                                    }
+                                                    <img class="userimage" src=" @avatarpost" alt="">
+                                                    @* <span class="userimage"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></span>*@
+                                                    <span class="username"><a href="javascript:;">@item.User.Username</a> <small></small></span>
+                                                    <div class="pull-right text-right">
+                                                        <div class="dropdown">
+                                                            @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
+                                                            <button class="btn btn-secondary bg-transparent text-dark border-0" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                                <i class="fa fa-ellipsis-h"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu" style="margin-left: -155px;">
+                                                                <a class="dropdown-item" href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Chỉnh sửa bài viết</a>
+                                                                <a class="dropdown-item" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Xóa bài</a>
+                                                                <a class="dropdown-item" href="#"><i class="fa fa-window-close" aria-hidden="true"></i> Ẩn bài viết</a>
+                                                            </div>
+                                                        </div>
                                                     </div>
+                                                </div>  
+                                                <div class="timeline-content">
+                                                    <p>@Html.Raw(@item.Content)</p>
                                                 </div>
-                                            </div>
-                                        </div>  
-                                        <div class="timeline-content">
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus turpis quis tincidunt luctus.
-                                                Nam sagittis dui in nunc consequat, in imperdiet nunc sagittis.
-                                            </p>
-                                        </div>
-                                        <div class="timeline-likes">
-                                            <div class="stats-right">        
-                                                <span class="stats-text">21 Comments</span>
-                                                <span class="stats-text">18 View</span>
-                                                
-                                            </div>
-                                            <div class="stats">
-                                                <span class="fa-stack fa-fw stats-icon">
-                                                    <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                                                    <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
-                                                </span>
-                                                <span class="stats-total">4.3k</span>
-                                            </div>
-                                        </div>
-                                        <div class="timeline-footer">
-                                            <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                                            <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
-                                        </div>
-                                        <div class="timeline-comment-box">
-                                            <div class="user"><img src="https://bootdey.com/img/Content/avatar/avatar3.png"></div>
-                                            <div class="input">
-                                                <form action="">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control rounded-corner" placeholder="Write a comment...">
-                                                        <span class="input-group-btn p-l-10">
-                                                            <button class="btn btn-primary f-s-12 rounded-corner" type="button">Comment</button>
+                                                <div class="timeline-likes">
+                                                    <div class="stats-right">        
+                                                        <span class="stats-text">@item.Comments.Count Comment</span>
+                                                        <span class="stats-text">@item.View View</span>
+
+                                                    </div>
+                                                    <div class="stats">
+                                                        <span class="fa-stack fa-fw stats-icon">
+                                                            <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                                                            <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
                                                         </span>
+                                                        <span class="stats-total">4.3k</span>
                                                     </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end timeline-body -->
-                                </li>
-                                <li>
-                                    <!-- begin timeline-time -->
-                                    <div class="timeline-time">
-                                        <span class="date">yesterday</span>
-                                        <span class="time">20:17</span>
-                                    </div>
-                                    <!-- end timeline-time -->
-                                    <!-- begin timeline-icon -->
-                                    <div class="timeline-icon">
-                                        <a href="javascript:;">&nbsp;</a>
-                                    </div>
-                                    <!-- end timeline-icon -->
-                                    <!-- begin timeline-body -->
-                                    <div class="timeline-body">
-                                        <div class="timeline-header">
-                                            <span class="userimage"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></span>
-                                            <span class="username">Sean Ngu</span>
-                                            <div class="pull-right text-right">
-                                                <div class="dropdown">
-                                                    @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
-                                                    <button class="btn btn-secondary bg-transparent text-dark border-0" type="button" data-toggle="dropdown" aria-expanded="false">
-                                                        <i class="fa fa-ellipsis-h"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu" style="margin-left: -155px;">
-                                                        <a class="dropdown-item" href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Chỉnh sửa bài viết</a>
-                                                        <a class="dropdown-item" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Xóa bài</a>
-                                                        <a class="dropdown-item" href="#"><i class="fa fa-window-close" aria-hidden="true"></i> Ẩn bài viết</a>
+                                                </div>
+                                                <div class="timeline-footer">
+                                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
+                                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
+                                                </div>
+                                                <div class="timeline-comment-box">
+                                                    <div class="user">
+                                                        @{
+                                                            var avatarcomment = Context.Session.GetString("avatar") == null ? "/img/avatar.jpg" : "/img/" + Context.Session.GetString("avatar");
+                                                        }
+                                                        <img class="userimage" src=" @avatarcomment" alt="">
+                                                    </div>
+                                                    <div class="input">
+                                                        <form action="">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control rounded-corner" placeholder="Write a comment...">
+                                                                <span class="input-group-btn p-l-10">
+                                                                    <button class="btn btn-primary f-s-12 rounded-corner" type="button">Comment</button>
+                                                                </span>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!-- end timeline-body -->
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <li>
+                                        <!-- begin timeline-time -->
+                                        <div class="timeline-time">
+                                            <span class="date"></span>
+                                            <span class="time"></span>
                                         </div>
-                                    
-                                        <div class="timeline-content">
-                                            <p>Location: United States</p>
+                                        <div class="timeline-icon">
+                                            <a href="javascript:;">&nbsp;</a>
                                         </div>
-                                        <div class="timeline-likes ">
-                                            <div class="stats-right">
-                                                <span class="stats-text">18 View</span>
+                                        <div class="timeline-body">
+                                            <div class="timeline-content">
+                                                <h3>Bạn chưa có bài viết nào!</h3>
                                             </div>
-                                            <div class="stats">
-                                                <span class="fa-stack fa-fw stats-icon">
-                                                    @*<i class="fa fa-circle fa-stack-2x text-danger"></i>
-                                                    <i class="fa fa-heart fa-stack-1x fa-inverse t-plus-1"></i>*@
-                                                </span>
-                                                <span class="fa-stack fa-fw stats-icon">
-                                                    @*<i class="fa fa-circle fa-stack-2x text-primary"></i>
-                                                    <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>*@
-                                                </span>
-                                                <span class="stats-total"></span>
-                                            </div>
                                         </div>
-                                        <div class="timeline-footer">
-                                            <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                                            <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
-                                        </div>
-                                    </div>
-                                    <!-- end timeline-body -->
-                                </li>
-                                <li>
-                                    <!-- begin timeline-time -->
-                                    <div class="timeline-time">
-                                        <span class="date">24 February 2014</span>
-                                        <span class="time">08:17</span>
-                                    </div>
-                                    <!-- end timeline-time -->
-                                    <!-- begin timeline-icon -->
-                                    <div class="timeline-icon">
-                                        <a href="javascript:;">&nbsp;</a>
-                                    </div>
-                                    <!-- end timeline-icon -->
-                                    <!-- begin timeline-body -->
-                                    <div class="timeline-body">
-                                        <div class="timeline-header">
-                                            <span class="userimage"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></span>
-                                            <span class="username">Sean Ngu</span>
-                                            <span class="pull-right text-muted">1,282 Views</span>
-                                        </div>
-                                        <div class="timeline-content">
-                                            <p class="lead">
-                                                <i class="fa fa-quote-left fa-fw pull-left"></i>
-                                                Quisque sed varius nisl. Nulla facilisi. Phasellus consequat sapien sit amet nibh molestie placerat. Donec nulla quam, ullamcorper ut velit vitae, lobortis condimentum magna. Suspendisse mollis in sem vel mollis.
-                                                <i class="fa fa-quote-right fa-fw pull-right"></i>
-                                            </p>
-                                        </div>
-                                        <div class="timeline-footer">
-                                            <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                                            <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
-                                        </div>
-                                    </div>
-                                    <!-- end timeline-body -->
-                                </li>
-                                <li>
-                                    <!-- begin timeline-time -->
-                                    <div class="timeline-time">
-                                        <span class="date">10 January 2014</span>
-                                        <span class="time">20:43</span>
-                                    </div>
-                                    <!-- end timeline-time -->
-                                    <!-- begin timeline-icon -->
-                                    <div class="timeline-icon">
-                                        <a href="javascript:;">&nbsp;</a>
-                                    </div>
-                                    <!-- end timeline-icon -->
-                                    <!-- begin timeline-body -->
-                                    <div class="timeline-body">
-                                        <div class="timeline-header">
-                                            <span class="userimage"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></span>
-                                            <span class="username">Sean Ngu</span>
-                                            <span class="pull-right text-muted">1,021,282 Views</span>
-                                        </div>
-                                        <div class="timeline-content">
-                                            <h4 class="template-title">
-                                                <i class="fa fa-map-marker text-danger fa-fw"></i>
-                                                795 Folsom Ave, Suite 600 San Francisco, CA 94107
-                                            </h4>
-                                            <p>In hac habitasse platea dictumst. Pellentesque bibendum id sem nec faucibus. Maecenas molestie, augue vel accumsan rutrum, massa mi rutrum odio, id luctus mauris nibh ut leo.</p>
-                                            <p class="m-t-20">
-                                                <img src="../assets/img/gallery/gallery-5.jpg" alt="">
-                                            </p>
-                                        </div>
-                                        <div class="timeline-footer">
-                                            <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                                            <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
-                                        </div>
-                                    </div>
-                                    <!-- end timeline-body -->
-                                </li>
-                                <li>
-                                    <!-- begin timeline-icon -->
-                                    <div class="timeline-icon">
-                                        <a href="javascript:;">&nbsp;</a>
-                                    </div>
-                                    <!-- end timeline-icon -->
-                                    <!-- begin timeline-body -->
-                                    <div class="timeline-body">
-                                        Loading...
-                                    </div>
-                                    <!-- begin timeline-body -->
-                                </li>
+                                    </li>
+                                }
                             </ul>
                             <!-- end timeline -->
                         </div>

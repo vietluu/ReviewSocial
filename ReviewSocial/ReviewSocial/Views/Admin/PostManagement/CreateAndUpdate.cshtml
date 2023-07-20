@@ -1,0 +1,77 @@
+﻿@using System.Security.Claims;
+@model ReviewSocial.Models.Post
+
+@{
+    ViewData["Title"] = "Thêm bài viết";
+    //var routeUrl = Url.RouteUrl(ViewContext.RouteData.Values).Split("/");
+    var url = Context.Request.Path.ToString().Split("/");
+    if (User.FindFirstValue(ClaimTypes.Role) == "Admin" && (url[1] == "admin" || url[1] == "PostManagement"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    //Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Thêm bài viết</h1>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-controller="PostManagement" asp-action="@(ViewBag.TitlePage == null ? "Create" : "Update")" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if(ViewBag.TitlePage != null)
+            {
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="UserId" />
+                <input type="hidden" asp-for="CreatedDate" />
+                <input type="hidden" asp-for="View" />
+                <input type="hidden" asp-for="Status" />
+                <input type="hidden" asp-for="Like" />
+                <input type="hidden" asp-for="TotalReport" />
+                <input type="hidden" asp-for="Thumbnail" />
+            }
+            
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class ="form-control">
+                @foreach (var item in ViewBag.Categories)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <textarea asp-for="Content" id="content-post-admin" class="form-control"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Thumbnail" class="control-label"></label>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input name="thumbnailFile" type="file" class="custom-file-input">
+                        <label class="custom-file-label">Choose file</label>
+                    </div>
+                </div>
+                <span asp-validation-for="Thumbnail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Lưu</button>
+                @*<a href="/admin/post" class="btn btn-success">Quay lại</a>*@
+                <a href="@(User.FindFirstValue(ClaimTypes.Role) == "Admin" && (url[1] == "admin" || url[1] == "PostManagement") ? "/admin/post" : "/")" class="btn btn-success">Quay lại</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

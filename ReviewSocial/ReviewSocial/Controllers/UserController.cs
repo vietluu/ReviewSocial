@@ -11,17 +11,19 @@ namespace ReviewSocial.Controllers
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
+        private readonly IPostRepository _postRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public UserController(IUserRepository userRepository, IWebHostEnvironment webHostEnvironment) 
+        public UserController(IUserRepository userRepository, IPostRepository postRepository, IWebHostEnvironment webHostEnvironment) 
         {
             _userRepository = userRepository;
+            _postRepository = postRepository;
             _webHostEnvironment = webHostEnvironment;
         }
         
         public IActionResult Profile()
         {
-            return View();
+            return View(_postRepository.GetAll());
         }
 
         [HttpGet]

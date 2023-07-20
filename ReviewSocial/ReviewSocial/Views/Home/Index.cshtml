@@ -1,156 +1,81 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Microsoft.AspNetCore.Http
+@using ReviewSocial.Repositories
+@model IEnumerable<Post>
+@inject ICategoryRepository ICategoryRepository;
+
+
+@{
+    var categories = ICategoryRepository.GetAll();
+}
+@{
+    ViewData["Title"] = "Trang chủ";
 }
 
 <div class="container p-2">
     <div class="row">
-        <div class="col-lg-8 col-md-12 activity p-2 newsfeed">
+        <div class="col-lg-9 col-md-12 activity p-2 newsfeed">
             <div class="panel panel-default mb-4 bg-white p-2 rounded-3">
                 <div class="row">
                     <div class="col-md-1 m-auto" style="width: 70px;">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                             class="w-100 img-circle">
+                        @{
+                            var avatar = Context.Session.GetString("avatar") == null ? "/img/avatar.jpg" : "/img/" + Context.Session.GetString("avatar");
+                        }
+                        <img class="w-100 img-circle" src="@avatar" alt="">
+                      @*  <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                             class="w-100 img-circle">*@
                     </div>
                     <div class="col-md-11">
                         <input type="text" class="form-control" placeholder="Bạn đang nghĩ gì?" readonly data-toggle="modal" data-target="#exampleModal">
+                       @* <a href="/post/create"  class="form-control" placeholder="Bạn đang nghĩ gì?"></a>*@
                     </div>
                 </div>
                 <div class="panel-footer">
                 </div>
             </div>
-            <div class="panel panel-default mb-3 bg-white p-2 rounded-3">
-                <div class="panel-heading">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-rounded img-circle">
-                    <div class="pull-right text-right">
-                        @*<div class="card-text"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>*@
-                        <div class="dropdown">
-                            @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
-                            <button class="btn btn-secondary bg-transparent text-dark border-0" type="button" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-ellipsis-h"></i>
-                            </button>
-                            <div class="dropdown-menu" style="margin-left: -155px;">
-                                <a class="dropdown-item" href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Chỉnh sửa bài viết</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Xóa bài</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-window-close" aria-hidden="true"></i> Ẩn bài viết</a>
+            <div id="listPost">
+                @if (Model != null)
+                {
+                    @foreach (Post item in Model)
+                    {
+                        <div class="panel panel-default mb-3 bg-white p-2 rounded-3">
+                            <div class="panel-heading">
+                                <img src="@(item.User.Avatar == null ? "/img/avatar.jpg" : "/img/" + item.User.Avatar)" class="img-rounded img-circle">
+                                <div class="pull-right text-right">
+                                    <div class="dropdown">
+                                        @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
+                                        <button class="btn btn-secondary bg-transparent text-dark border-0" type="button" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                        <div class="dropdown-menu" style="margin-left: -155px;">
+                                            <a class="dropdown-item" href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Chỉnh sửa bài viết</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Xóa bài</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-window-close" aria-hidden="true"></i> Ẩn bài viết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div><strong>@item.User.Username</strong></div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="text-center">
+                                    <a href="/post/details/@item.Id">
+                                    <img src="@(item.Thumbnail == null ? "/img/logo.jpg" : "/img/posts/" + item.Thumbnail)" class="img-responsive w-50">
+                                    </a>
+                                 
+                                </div>
+                                <div class="card-body text-center">
+                                <a href="/post/details/@item.Id" class="card-text">@item.Title</a>
+                                </div>
+                                <div class="actions">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-link"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                                        <button type="button" class="btn btn-link"><i class="fa fa-comments"></i> Comment</button>
+                                    </div>
+                                    <div class="pull-right"><strong>@item.View</strong> People View this</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div><strong>John Doe</strong></div>
-                </div>
-                <div class="panel-body">
-                    <img src="https://www.bootdey.com/image/500x333" class="img-responsive">
-                    <div class="card-body">
-                        <a href="#" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</a>
-                    </div>
-                    <div class="actions">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-link"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                            <button type="button" class="btn btn-link"><i class="fa fa-comments"></i> Comment</button>
-                        </div>
-                        <div class="pull-right"><strong>1.789</strong> People View this</div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="panel panel-default mb-3 bg-white p-2 rounded-3">
-                <div class="panel-heading">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-rounded img-circle"/>
-                    <div class="pull-right text-right">
-                        <div class="dropdown">
-                            @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
-                            <button class="btn btn-secondary bg-transparent text-dark border-0" type="button" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-ellipsis-h"></i>
-                            </button>
-                            <div class="dropdown-menu" style="margin-left: -155px;">
-                                <a class="dropdown-item" href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Chỉnh sửa bài viết</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Xóa bài</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-window-close" aria-hidden="true"></i> Ẩn bài viết</a>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <div><strong>John Doe</strong></div>
-                </div>
-                <div class="panel-body">
-                    <img src="https://www.bootdey.com/image/500x333" class="img-responsive">
-                    <div class="card-body">
-                        <a href="#" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</a>
-                    </div>
-                    <div class="actions">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-link"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                            <button type="button" class="btn btn-link"><i class="fa fa-comments"></i> Comment</button>
-                        </div>
-                        <div class="pull-right"><strong>1.789</strong> People View this</div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="panel panel-default mb-3 bg-white p-2 rounded-3">
-                <div class="panel-heading">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-rounded img-circle">
-                    <div class="pull-right text-right">
-                        <div class="dropdown">
-                            @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
-                            <button class="btn btn-secondary bg-transparent text-dark border-0" type="button" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-ellipsis-h"></i>
-                            </button>
-                            <div class="dropdown-menu" style="margin-left: -155px;">
-                                <a class="dropdown-item" href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Chỉnh sửa bài viết</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Xóa bài</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-window-close" aria-hidden="true"></i> Ẩn bài viết</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div><strong>John Doe</strong></div>
-                </div>
-                <div class="panel-body">
-                    <img src="https://www.bootdey.com/image/500x333" class="img-responsive">
-                    <div class="card-body">
-                        <a href="#" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</a>
-                    </div>
-                    <div class="actions">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-link"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                            <button type="button" class="btn btn-link"><i class="fa fa-comments"></i> Comment</button>
-                        </div>
-                        <div class="pull-right"><strong>1.789</strong> People View this</div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="panel panel-default mb-3 bg-white p-2 rounded-3">
-                <div class="panel-heading">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-rounded img-circle">
-                    <div class="pull-right text-right">
-                        <div class="dropdown">
-                            @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
-                            <button class="btn btn-secondary bg-transparent text-dark border-0" type="button" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-ellipsis-h"></i>
-                            </button>
-                            <div class="dropdown-menu" style="margin-left: -155px;">
-                                <a class="dropdown-item" href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Chỉnh sửa bài viết</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Xóa bài</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-window-close" aria-hidden="true"></i> Ẩn bài viết</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div><strong>John Doe</strong></div>
-                </div>
-                <div class="panel-body">
-                    <img src="https://www.bootdey.com/image/500x333" class="img-responsive">
-                    <div class="card-body">
-                        <a href="#" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</a>
-                    </div>
-                    <div class="actions">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-link"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                            <button type="button" class="btn btn-link"><i class="fa fa-comments"></i> Comment</button>
-                        </div>
-                        <div class="pull-right"><strong>1.789</strong> People View this</div>
-                    </div>
-
-                </div>
+                    }
+                }
             </div>
         @*    <div class="row">
                 <div class="col-md-12 mb-4">
@@ -255,10 +180,10 @@
 
         </div>
 
-        <div class="col-lg-4 d-md-none activity d-lg-block p-2">
-            <div class="category bg-white rounded-3">
-                <h3 class="title text-center">
-                    category
+        <div class="col-lg-3 d-md-12 activity d-lg-block p-2">
+            @*<div class="category bg-white rounded-3">*@
+                @*<h3 class="title text-center">
+                    
                 </h3>
                 <div class="sidebar__box flex-column d-flex align-items-center justify-content-center">
                     <div class="sidebar__item">
@@ -285,8 +210,26 @@
                             Lorem ipsum dolor sit amet
                         </a>
                     </div>
+                </div>*@
+                <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        Danh mục
+                    </div>
+                    <ul class="navbar-nav m-auto">
+                        <li class="nav-item active">
+                        <a class="nav-link" href="/home">Trang chủ <span class="sr-only">(current)</span></a>
+                        </li>
+                        @foreach (var category in categories as List<Category>)
+                        {
+                            <li class="nav-item" >
+                                <a class="nav-link" href="#">@category.Name</a>
+                            </li>
+                        }
+
+                    </ul>
                 </div>
-            </div>
+
+            @*</div>*@
         </div>
     </div>
 </div>
@@ -312,12 +255,11 @@
                     <div class="form-group row mb-3">
                         <label for="title" class="col-sm-2 col-form-label">Danh mục:</label>
                         <div class="col-sm-10">
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                            <select class="form-control" id="category">
+                                @foreach (var category in categories as List<Category>)
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
                             </select>
                         </div>
                     </div>
@@ -330,19 +272,126 @@
                     <div class="form-group row mb-3">
                         <label for="exampleFormControlFile1" class="col-sm-2 col-form-label">Ảnh bài viết:</label>
                         <div class="col-sm-10">
-                            <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+                            <input type="file" name="file" class="form-control-file" id="file">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" id="btnCloseModal" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="btnSubmit" >Lưu</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<script>
+
+@section Scripts{
+    <script>
+        const url = "/Post/";
+        const request = new XMLHttpRequest();
+        const btnSubmit = document.getElementById("btnSubmit");
+        const btnCloseModal = document.getElementById("btnCloseModal");
+        const listPost = document.getElementById("listPost");
+
+        btnSubmit.onclick = create;
+
+        function create() {
+            var post = getDataForm();
+            console.log(post);
+            request.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var res = JSON.parse(this.responseText);
+                    console.log(res);
+                    if (res.message != null) {
+                        error.innerHTML = res.message;
+                        return;
+                    }
+                    listPost.insertAdjacentHTML("afterbegin", renderPost(res));
+                    btnCloseModal.click();
+                    alert("Thêm bài viết thành công");
+              
+                }
+            };
+            request.open("POST", url + "Create", true);
+            //request.setRequestHeader("Content-type", "application/json");
+            //request.send(JSON.stringify(post));
+            request.send(post);
+        }
+
+        function getDataForm() {
+            var formData = new FormData();
+            formData.append("Title", document.getElementById("title").value);
+            formData.append("Content", CKEDITOR.instances["content-home"].getData());
+            formData.append("CategoryId", document.getElementById("category").value);
+            formData.append("file", document.getElementById("file").files[0] || "");
+            return formData;
+        }
+
+        function resetForm() {
+            document.getElementById("title").value = "";
+            CKEDITOR.instances["content"].setData("");
+            document.getElementById("description").value = "";
+            document.getElementById("subCategory").value = "";
+            document.getElementById("file").value = null;
+            document.getElementById("exampleModalLabel").innerText = "Thêm thông tin bài viết";
+            document.getElementById("btnSubmit").value = "add";
+            document.getElementById("btnSubmit").innerText = "Lưu";
+            document.getElementById("btnCLoseModal").click();
+        }
+
+        function renderPost(post) {
+            const nameCategory = getCategoryNameByCategoryId(post.CategoryId);
+
+            return `<div class="panel panel-default mb-3 bg-white p-2 rounded-3">
+                        <div class="panel-heading">
+                            <img src="${post.user.avatar == null ? "/img/avatar.jpg" : "/img/" + post.user.avatar}" class="img-rounded img-circle">
+                            <div class="pull-right text-right">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary bg-transparent text-dark border-0" type="button" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                    <div class="dropdown-menu" style="margin-left: -155px;">
+                                        <a class="dropdown-item" href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Chỉnh sửa bài viết</a>
+                                        <a class="dropdown-item" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Xóa bài</a>
+                                        <a class="dropdown-item" href="#"><i class="fa fa-window-close" aria-hidden="true"></i> Ẩn bài viết</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div><strong>${post.user.username}</strong></div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="text-center">
+                                <a href="/post/details/${post.id}">
+                                    <img src="${post.thumbnail == null ? "/img/logo.jpg" : "/img/posts/" + post.thumbnail}" class="img-responsive w-50">
+                                </a>
+
+                            </div>
+                            <div class="card-body text-center">
+                                <a href="/post/details/${post.id}" class="card - text">${post.title}</a>
+                            </div>
+                            <div class="actions">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-link"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                                    <button type="button" class="btn btn-link"><i class="fa fa-comments"></i> Comment</button>
+                                </div>
+                                <div class="pull-right"><strong>${post.view}</strong> People View this</div>
+                            </div>
+                        </div>
+                    </div>`;
+        }
+
+        function getCategoryNameByCategoryId(CategoryId) {
+            var select = document.getElementById("category");
+            for (var i = 0; i < select.options.length; i++) {
+                var option = select.options[i];
+                if (option.value == CategoryId) {
+                    return option.innerHTML;
+                }
+            }
+            return "";
+        }
+    </script>
+}
 
     
-</script>
+

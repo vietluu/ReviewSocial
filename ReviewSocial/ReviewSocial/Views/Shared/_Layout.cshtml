@@ -1,4 +1,5 @@
 ﻿@using ReviewSocial.Repositories;
+@using Microsoft.AspNetCore.Http;
 @inject ICategoryRepository ICategoryRepository;
 @{
     var categories = ICategoryRepository.GetAll();
@@ -46,7 +47,7 @@
                         @foreach(var category in categories as List<Category>)
                         {
                            <li class="nav-item">
-                            <a class="nav-link" href="#">@category.Name</a>
+                            <a class="nav-link" href="/post/@category.Id">@category.Name</a>
                            </li>
                         }
                         
@@ -58,7 +59,11 @@
                             <div class="dropdown">
                                 @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
                                 <a href="/user/profile" class="text-decoration-none bg-transparent text-dark border-0">
-                                    <img src="~/img/avatar.jpg" style="width: 25px;" />
+                                    @{
+                                        var avatar = Context.Session.GetString("avatar") == null ? "/img/avatar.jpg" : "/img/" + Context.Session.GetString("avatar");
+                                    }
+                                    <img class="app-sidebar__user-avatar img-circle" src="@avatar" width="40px" alt="User Image">
+                                @*    <img src="~/img/avatar.jpg" style="width: 25px;" />*@
                                 </a>
                                 <span data-toggle="dropdown" aria-expanded="false">@User.Identity.Name</span>
                                 <div class="dropdown-menu" style="margin-left: -40px;">

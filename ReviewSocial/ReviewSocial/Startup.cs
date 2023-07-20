@@ -50,6 +50,7 @@ namespace ReviewSocial
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -108,6 +109,10 @@ namespace ReviewSocial
                     name: "Post",
                     pattern: "post/{id}",
                     defaults: new { controller = "Auth", action = "Details" });
+                endpoints.MapControllerRoute(
+                name: "Post",
+                pattern: "post/{CategoryId}",
+                defaults: new { controller = "Post", action = "Index" });
                 #endregion
 
                 #region User
@@ -153,9 +158,21 @@ namespace ReviewSocial
 
                 #region PostManagement
                 endpoints.MapControllerRoute(
-                    name: "PostManagement",
+                    name: "admin/post",
                     pattern: "admin/post",
                     defaults: new { controller = "PostManagement", action = "Index" });
+                endpoints.MapControllerRoute(
+                    name: "admin/post/create",
+                    pattern: "admin/post/create",
+                    defaults: new { controller = "PostManagement", action = "Create" });
+                endpoints.MapControllerRoute(
+                    name: "admin/post/update",
+                    pattern: "admin/post/update/{id}",
+                    defaults: new { controller = "PostManagement", action = "Update" });
+                endpoints.MapControllerRoute(
+                    name: "admin/post/delete",
+                    pattern: "admin/post/delete",
+                    defaults: new { controller = "PostManagement", action = "Delete" });
                 #endregion
 
                 #region UserManagement
