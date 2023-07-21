@@ -136,6 +136,7 @@ D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\ReviewSocial.TagH
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\ReviewSocial.RazorCoreGenerate.cache
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\Admin\CategoryManagement\Index.cshtml.g.cs
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\Admin\HomeAdmin\Index.cshtml.g.cs
+D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\Admin\PostManagement\CreateAndUpdate.cshtml.g.cs
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\Admin\PostManagement\Index.cshtml.g.cs
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\Admin\UserManagement\Index.cshtml.g.cs
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\Auth\ChangePassword.cshtml.g.cs
@@ -143,12 +144,13 @@ D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\Auth\
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\Auth\Register.cshtml.g.cs
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
+D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\Home\Search.cshtml.g.cs
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\Post\Details.cshtml.g.cs
-D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\Post\Index.cshtml.g.cs
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\Shared\_AdminLayout.cshtml.g.cs
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\User\EditProfile.cshtml.g.cs
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\User\Profile.cshtml.g.cs
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\_ViewStart.cshtml.g.cs
@@ -161,4 +163,4 @@ D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\refint\ReviewSoci
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\ReviewSocial.pdb
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\ReviewSocial.genruntimeconfig.cache
 D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\ref\ReviewSocial.dll
-D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\User\EditProfile.cshtml.g.cs
+D:\bgi\ReviewSocial\ReviewSocial\ReviewSocial\obj\Debug\net5.0\Razor\Views\Post\Index.cshtml.g.cs

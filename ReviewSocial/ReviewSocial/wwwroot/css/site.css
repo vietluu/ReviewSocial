@@ -25,11 +25,7 @@
     max-width:100vw;
     width:100%;
     }
-    .panel-body img{
-      width: 100%;
-      max-width: 100%;
-  
-    }
+   
     .form-control {
         border: 1px solid #d1d4d7;
         -webkit-border-radius: 2px;
@@ -121,11 +117,11 @@
   
     body{
       height: 100vh;
-      /*overflow: hidden;*/
+      overflow: hidden;
     }
     .newsfeed{
-      height: 100vh;
-      /*overflow-y:scroll ;*/
+      height: 93vh;
+      overflow-y:scroll ;
     }
     .newsfeed::-webkit-scrollbar{
       width: 1px;
@@ -165,4 +161,19 @@
 
 .img-circle {
     border-radius: 50%
+}
+#imagePreview img{
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+
+}
+#imagePreview2 img{
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+
+}
+.post_Card::-webkit-scrollbar{
+  width: 0;
 }

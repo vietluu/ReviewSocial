@@ -5,23 +5,29 @@ using ReviewSocial.Models;
 using ReviewSocial.Repositories;
 using System.IO;
 using System;
+using System.Security.Claims;
 
 namespace ReviewSocial.Controllers
 {
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
+        private readonly IPostRepository _postRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public UserController(IUserRepository userRepository, IWebHostEnvironment webHostEnvironment) 
+        public UserController(IHttpContextAccessor contextAccessor,IUserRepository userRepository, IPostRepository postRepository, IWebHostEnvironment webHostEnvironment) 
         {
             _userRepository = userRepository;
+            _postRepository = postRepository;
             _webHostEnvironment = webHostEnvironment;
+            _contextAccessor = contextAccessor;
         }
         
         public IActionResult Profile()
         {
-            return View();
+            
+            return View(_postRepository.GetByUser(int.Parse(_contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Sid))));
         }
 
         [HttpGet]

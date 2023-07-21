@@ -1,4 +1,5 @@
 ﻿@using ReviewSocial.Repositories;
+@using Microsoft.AspNetCore.Http;
 @inject ICategoryRepository ICategoryRepository;
 @{
     var categories = ICategoryRepository.GetAll();
@@ -14,24 +15,24 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link href="~/lib/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    @*<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">*@
+    @* <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> *@
     <link rel="stylesheet" href="~/ReviewSocial.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#" style="width: 35px;">
-                    <img src="~/img/logo.jpg" class="w-100 img-circle" />
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand" style="width: 35px;">
+                    <img src="~/img/Review.png" class="w-100 img-circle" />
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <form class="form-inline my-2 my-lg-0">
+                    <form class="form-inline my-2 my-lg-0" asp-controller="Home"  method="get" asp-action="Search">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" class="form-control" name="name" placeholder="Search">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-dark my-sm-0" type="submit"><i class="fa fa-search"></i></button>
                             </div>
@@ -40,15 +41,15 @@
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>*@
                     </form>
                     <ul class="navbar-nav m-auto">
-                        <li class="nav-item active">
+                        @* <li class="nav-item active">
                             <a class="nav-link" href="/home">Trang chủ <span class="sr-only">(current)</span></a>
                         </li>
                         @foreach(var category in categories as List<Category>)
                         {
                            <li class="nav-item">
-                            <a class="nav-link" href="#">@category.Name</a>
+                            <a class="nav-link" href="/post/@category.Id">@category.Name</a>
                            </li>
-                        }
+                        } *@
                         
                     </ul>
 
@@ -58,7 +59,11 @@
                             <div class="dropdown">
                                 @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
                                 <a href="/user/profile" class="text-decoration-none bg-transparent text-dark border-0">
-                                    <img src="~/img/avatar.jpg" style="width: 25px;" />
+                                    @{
+                                        var avatar = Context.Session.GetString("avatar") == null ? "/img/avatar.jpg" : "/img/" + Context.Session.GetString("avatar");
+                                    }
+                                    <img class="app-sidebar__user-avatar img-circle" src="@avatar" width="50" height="50" class="img-rounded img-circle cover-image">
+                                @*    <img src="~/img/avatar.jpg" style="width: 25px;" />*@
                                 </a>
                                 <span data-toggle="dropdown" aria-expanded="false">@User.Identity.Name</span>
                                 <div class="dropdown-menu" style="margin-left: -40px;">
@@ -86,6 +91,7 @@
                             </div>*@
                             @* <img src="~/img/avatar.jpg" style="width: 25px;" />*@
                             <a href="/login" class="nav-link pl-0 ml-2" title="Đăng nhập"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+                            
                             @*  //linkName - action - controller ->*@
                             @*@Html.ActionLink("Login", "Login", "Account", null, new { @class = "nav-link" })*@
                         }

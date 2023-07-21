@@ -83,12 +83,15 @@ namespace ReviewSocial.Database
                     .HasColumnType("datetime")
                     .HasColumnName("createdDate");
 
+                // entity.Property(e => e.UpdatedDate)
+                //     .HasColumnType("datetime")
+                //     .HasColumnName("updatedDate");
+
                 entity.Property(e => e.Status).HasColumnName("status");
 
                 entity.Property(e => e.Thumbnail)
                     .HasMaxLength(250)
                     .IsUnicode(false)
-                    .IsRequired()
                     .HasColumnName("thumbnail");
 
                 entity.Property(e => e.Title)

@@ -22,7 +22,7 @@ namespace ReviewSocial.Repositories.Impl
 
         public List<Post> GetAll()
         {
-           return _context.Posts.Include(c => c.User).ToList();
+           return _context.Posts.Include(c => c.User).Include(p => p.Comments).ToList();
         }
         public Post Create(Post post)
         {
@@ -30,14 +30,22 @@ namespace ReviewSocial.Repositories.Impl
             _context.SaveChanges();
             return post;
         }
+         public IEnumerable<Post> GetByUser(int id){
 
+         return _context.Posts.Where(p => p.UserId == id).Include(p => p.Category).Include(p => p.User).Include(p => p.Comments).ToList();
+
+         }
         public Post GetById(int id)
         {
-            return _context.Posts.Find(id);
+            return _context.Posts.Include(p => p.User).SingleOrDefault(p => p.Id == id);
         }
-        public Post GetByTitle(string title)
+         public IEnumerable<Post> GetByCategory(int id)
         {
-            return _context.Posts.SingleOrDefault(c => c.Title == title);
+            return _context.Posts.Where(p => p.CategoryId == id).Include(p => p.Category).Include(p => p.User).ToList();
+        }
+        public IEnumerable<Post> GetByTitle(string title)
+        {
+            return _context.Posts.Where(p => p.Title.Contains(title)).Include(p=>p.User).Include(p=>p.Comments).ToList();
         }
         public bool ExistsByTitle(string title)
         {

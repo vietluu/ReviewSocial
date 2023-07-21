@@ -11,8 +11,12 @@ namespace ReviewSocial.Repositories
     {
         List<Post> GetAll();
         Post GetById(int id);
-        Post GetByTitle(string name);
+        IEnumerable<Post> GetByTitle(string name);
         bool ExistsByTitle (string name);
+        public IEnumerable<Post> GetByCategory(int id);
+        public IEnumerable<Post> GetByUser(int id);
+
+
         Post Create(Post post);
         void Update(Post post);
         void Delete(Post post);

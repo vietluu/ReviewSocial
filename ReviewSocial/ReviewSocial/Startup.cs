@@ -42,6 +42,7 @@ namespace ReviewSocial
 
             services.AddSession(options =>
             {
+                
                 options.IdleTimeout = TimeSpan.FromMinutes(60);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
@@ -52,8 +53,11 @@ namespace ReviewSocial
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            services.AddScoped<IPostRepository, PostRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,6 +87,10 @@ namespace ReviewSocial
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                    endpoints.MapControllerRoute(
+                    name: "searchByCategory",
+                    pattern: "search",
+                    defaults: new {controller="Home" ,action= "Search"});
 
                 #region Auth
                 endpoints.MapControllerRoute(
@@ -112,6 +120,10 @@ namespace ReviewSocial
                     name: "Post",
                     pattern: "post/{id}",
                     defaults: new { controller = "Auth", action = "Details" });
+                endpoints.MapControllerRoute(
+                name: "Post",
+                pattern: "post/{CategoryId}",
+                defaults: new { controller = "Post", action = "Index" });
                 #endregion
 
                 #region User
@@ -157,9 +169,21 @@ namespace ReviewSocial
 
                 #region PostManagement
                 endpoints.MapControllerRoute(
-                    name: "PostManagement",
+                    name: "admin/post",
                     pattern: "admin/post",
                     defaults: new { controller = "PostManagement", action = "Index" });
+                endpoints.MapControllerRoute(
+                    name: "admin/post/create",
+                    pattern: "admin/post/create",
+                    defaults: new { controller = "PostManagement", action = "Create" });
+                endpoints.MapControllerRoute(
+                    name: "admin/post/update",
+                    pattern: "admin/post/update/{id}",
+                    defaults: new { controller = "PostManagement", action = "Update" });
+                endpoints.MapControllerRoute(
+                    name: "admin/post/delete",
+                    pattern: "admin/post/delete",
+                    defaults: new { controller = "PostManagement", action = "Delete" });
                 #endregion
 
                 #region UserManagement
@@ -169,6 +193,7 @@ namespace ReviewSocial
                     defaults: new { controller = "UserManagement", action = "Index" });
                 #endregion
             });
+
         }
     }
 }
