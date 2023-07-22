@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor Accessor
 @{
-    ViewData["Title"] = "Trang chủ";
+    ViewData["Title"] = "Tìm kiếm";
 }
 
 <div class="container p-2">
@@ -30,7 +30,7 @@
                 
                 <div class="panel panel-default mb-3 bg-white p-2 rounded-sm">
                 <div class="panel-heading">
-                    <img src="@Url.Content("~/img/")@item.User.Avatar" width="40" height="40" class="img-rounded img-circle cover-image">
+                    <img alt="avatar" src="@Url.Content("~/img/")@item.User.Avatar" width="40" height="40" class="img-rounded img-circle cover-image">
                     <div class="pull-right text-right">
                         @*<div class="card-text"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>*@
                         <div class="dropdown">
@@ -119,7 +119,7 @@
                         @if (@item.Thumbnail.Trim() != "")
                         {
                             <div class="text-center">
-                                <img src="@Url.Content("~")/@item.Thumbnail"  class="img-responsive w-50 h-50">
+                                <img src="@Url.Content("~")/@item.Thumbnail" alt="@item.Title" title="@item.Title" class="img-responsive w-50 h-50">
 
                             </div>
                         }
@@ -127,7 +127,6 @@
                     </div>
                     <div class="actions">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-link"><i class="fa fa-thumbs-o-up"></i> Like</button>
                             <button type="button" class="btn btn-link"><i class="fa fa-comments"></i>                        
                             <a asp-controller="Post" asp-action="Details" asp-route-id=@item.Id class="card-text">Comment</a>
 </button>
@@ -253,7 +252,7 @@
                 <h3 class="title text-center">
                     Danh mục
                 </h3>
-                <div class="sidebar__box flex-column d-flex align-items-center justify-content-center">
+                <div class="sidebar__box flex-column d-flex  justify-content-start">
                     @foreach (var item in Model.Item1){
                         <div class="sidebar__item">
                         <i class="fa fa-newspaper-o"></i>

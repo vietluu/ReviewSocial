@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.IO;
-
+using System;
 
 namespace ReviewSocial.Repositories.Impl
 {
@@ -22,7 +22,7 @@ namespace ReviewSocial.Repositories.Impl
 
         public List<Post> GetAll()
         {
-           return _context.Posts.Include(c => c.User).Include(p => p.Comments).ToList();
+           return _context.Posts.Include(c => c.User).Include(p => p.Comments).Include(p=>p.Category).ToList();
         }
         public Post Create(Post post)
         {
@@ -71,8 +71,8 @@ namespace ReviewSocial.Repositories.Impl
 
            if(file != null){
 
-            var fileName = Path.GetFileName(file.FileName);
-            var filePath = Path.Combine("wwwroot", "img", fileName);
+                var fileName = DateTime.UtcNow.Ticks.ToString() + Path.GetExtension(Path.GetFileName(file.FileName));
+                var filePath = Path.Combine("wwwroot", "img", fileName);
             if (!File.Exists(filePath))
             {
                 using (var fileStream = new FileStream(filePath, FileMode.Create))

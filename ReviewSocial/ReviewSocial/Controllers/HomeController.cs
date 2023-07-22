@@ -5,8 +5,6 @@ using ReviewSocial.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Dynamic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication;
@@ -76,7 +74,7 @@ namespace ReviewSocial.Controllers
         public async Task<IActionResult> Create(Post post, IFormFile file)
         {
             try
-            { // lưu ảnh lên server
+            {
                 if (HttpContext.Session.GetString("id") != null)
                 {
                     var imagePath = "";
@@ -151,8 +149,6 @@ namespace ReviewSocial.Controllers
 
                 item.CategoryId = post.CategoryId;
                 item.Content = post.Content ?? "";
-
-                // Like = 0,
                 if (imagePath.Length > 0)
                 {
                     item.Thumbnail = imagePath;

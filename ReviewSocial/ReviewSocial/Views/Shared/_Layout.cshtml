@@ -3,8 +3,9 @@
 @inject ICategoryRepository ICategoryRepository;
 @{
     var categories = ICategoryRepository.GetAll();
+ViewData["Description"] = "Mạng xã hội chia sẻ đánh giá về mĩ phẩm";
+ViewData["Keywords"] = "son, sữa tắm,phấn, nước hoa";
 }
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +13,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ReviewSocial</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <meta name="description" content="@ViewData["Description"]">
+    <meta name="keywords" content="@ViewData["Keywords"]">
+    <meta property="og:title" content="@ViewData["Title"]">
+    <meta property="og:description" content="@ViewData["Description"]">
+    <meta name="twitter:title" content="@ViewData["Title"]">
+    <meta name="twitter:description" content="@ViewData["Description"]">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link href="~/lib/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
     @* <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> *@

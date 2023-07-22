@@ -41,7 +41,7 @@
                                 <td>@item.Title</td>
                                 <td>@item.Category.Name</td>
                                 <td>
-                                    <img class="w-100" src="@(item.Thumbnail == null ? "/img/logo.jpg" : "/img/posts/" + item.Thumbnail)" />
+                                    <img alt="logo" class="w-100" src="@(item.Thumbnail == null ? "/img/logo.jpg" : "/" + item.Thumbnail)" />
                                 </td>
                                 <td class="table-td-center">
                                   @*  <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"

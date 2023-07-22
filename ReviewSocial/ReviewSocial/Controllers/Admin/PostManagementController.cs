@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.Security.Claims;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace ReviewSocial.Controllers.Admin
 {
@@ -33,32 +34,28 @@ namespace ReviewSocial.Controllers.Admin
             return View(view + "Index.cshtml", _postRepository.GetAll());
         }
 
-        public string UploadFile(IFormFile file)
+     
+             public async Task<string> UploadFile(IFormFile file)
         {
-            if (file != null && file.Length > 0)
-            {
-                // Lấy đường dẫn nơi bạn muốn lưu trữ ảnh trên server
-                var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "img/posts");
 
-                // Tạo thư mục nếu nó chưa tồn tại
-                if (!Directory.Exists(imagePath))
-                    Directory.CreateDirectory(imagePath);
+           if(file != null){
 
-                // Tạo tên file duy nhất cho ảnh
-                var uniqueFileName = DateTime.UtcNow.Ticks.ToString() + Path.GetExtension(file.FileName);
-
-                // Tạo đường dẫn đầy đủ của file ảnh trên server
-                var filePath = Path.Combine(imagePath, uniqueFileName);
-
-                // Lưu ảnh lên server
+                var fileName = DateTime.UtcNow.Ticks.ToString() + Path.GetExtension(Path.GetFileName(file.FileName));
+                Console.WriteLine(fileName);
+                var filePath = Path.Combine("wwwroot", "img", fileName);
+            
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    file.CopyTo(fileStream);
+                    await file.CopyToAsync(fileStream);
                 }
-                return uniqueFileName;
+            
+            return $"img/{fileName}";
+           }
+           else{
+                return "";
             }
-            return "";
         }
+        
 
         [HttpGet]
         public IActionResult Create()
@@ -68,21 +65,26 @@ namespace ReviewSocial.Controllers.Admin
         }
 
         [HttpPost]
-        public IActionResult Create(Post post, IFormFile thumbnailFile)
+        public async Task<IActionResult> Create(Post post, IFormFile thumbnailFile)
         {
-            if (ModelState.IsValid)
+            Console.WriteLine(thumbnailFile.FileName);
+            var image = await UploadFile(thumbnailFile);
+
+            var item = new Post
             {
-                post.CreatedDate = DateTime.UtcNow;
-                // post.UpdatedDate = DateTime.UtcNow;
-                post.UserId = int.Parse(_contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Sid));
-                post.View = 0;
-                post.TotalReport = 0;
-                post.Status = true;
-                // post.Like = 0;
-                post.Thumbnail = UploadFile(thumbnailFile);
-                _postRepository.Create(post);
+                CreatedDate = DateTime.UtcNow,
+                UserId = int.Parse(_contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Sid)),
+                CategoryId = post.CategoryId,
+                Content = post.Content ?? "",
+                Title = post.Title ?? "",
+                TotalReport = 0,
+                View = 0,
+                Thumbnail = image,
+            };
+
+            _postRepository.Create(item);
                 return RedirectToRoute("admin/post");
-            }
+            
 
             ViewBag.Categories = _categoryRepository.GetAll();
             return View(view + "CreateAndUpdate.cshtml");
@@ -104,7 +106,7 @@ namespace ReviewSocial.Controllers.Admin
             }
             if (ModelState.IsValid)
             {
-                post.Thumbnail = (thumbnailFile != null && thumbnailFile.Length > 0) ? UploadFile(thumbnailFile) : post.Thumbnail;
+                // post.Thumbnail = (thumbnailFile != null && thumbnailFile.Length > 0) ? UploadFile(thumbnailFile) : post.Thumbnail;
                 // post.UpdatedDate = DateTime.UtcNow;
                 _postRepository.Update(post);
                 return RedirectToRoute("admin/post");

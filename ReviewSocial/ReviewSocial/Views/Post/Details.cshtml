@@ -6,7 +6,7 @@
 @inject IHttpContextAccessor Accessor;
 
 @{
-    ViewData["Title"] = "Tin Đẹp";
+    ViewData["Title"] = Model.Item1.Title;
 }
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
@@ -22,7 +22,7 @@
             </nav>
             <div style="overflow-y:scroll ; height: 85vh;" class="panel panel-default mb-3 bg-white px-1 rounded-3 post_Card">
                 <div class="panel-heading">
-                    <img src="@(Model.Item1.User.Avatar == null ? "/img/avatar.jpg" : "/img/" + Model.Item1.User.Avatar)" class="rounded-circle" width="40" height="40"> 
+                    <img src="@(Model.Item1.User.Avatar == null ? "/img/avatar.jpg" : "/img/" + Model.Item1.User.Avatar)" class="rounded-circle" width="40" height="40"/> 
                     <div class="pull-right text-right">
                         <div class="dropdown">
                             @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
@@ -48,14 +48,13 @@
                             @Html.Raw(@Model.Item1.Content)
                     </div class="d-flex">
                         <div class="w-50 h-50 mx-auto">
-                            <img src="@Url.Content("~/")@Model.Item1.Thumbnail">
+                            <img src="@Url.Content("~/")@Model.Item1.Thumbnail" alt="@Model.Item1.Title" title="@Model.Item1.Title" />
                         </div>
                     </div>
 
 
                     <div class="actions">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-link"><i class="fa fa-thumbs-o-up"></i> Like</button>
                             <button type="button" class="btn btn-link"><i class="fa fa-comments"></i> Comment</button>
 
                         </div>
@@ -80,14 +79,14 @@
                                         <i class="fa fa-ellipsis-h"></i>
                                     </button>
                                     <div class="dropdown-menu" style="margin-left: -155px;">
-                                                    @* @if (item.UserId == Convert.ToInt32(Accessor.HttpContext.Session.GetString("id")))
-                                                    { *@
+                                                    @if (item.UserId == Convert.ToInt32(Accessor.HttpContext.Session.GetString("id")))
+                                                    {
 
                                             <a class="dropdown-item" onclick="toggleField(`item-@item.Id`,@item.Id,`@item.Content`)" ><i class="fa fa-pencil" aria-hidden="true"  readonly ></i> Chỉnh sửa bài viết</a>
                                             <a class="dropdown-item" onclick="deleteCmt(@item.Id)"><i class="fa fa-trash" aria-hidden="true"></i> Xóa bài</a>
                                             <a class="dropdown-item" href="#"><i class="fa fa-window-close" aria-hidden="true"></i> Ẩn bài viết</a>
 
-                                                    @* } *@
+                                                    }
                                     </div>
                                 </div>
                             </div>
@@ -164,15 +163,15 @@
                     formData.append('content', comment);
                     formData.append("id",id);
 
-                    ajaxCustom("/Post/updateCmt","post",formData,(value)=>{window.location.reload()},(value)=>{alert('them khong thanh cong')})
+                    ajaxCustom("/Post/updateCmt","post",formData,(value)=>{window.location.reload()},(value)=>{alert('thêm không thành công!')})
 };
                 }
                  const deleteCmt = (itemId) => {
 
-                    if (confirm("Bạn có muốn xóa binh luan này?")) {
+                    if (confirm("Bạn có muốn xóa bình luận  này?")) {
 
                     ajaxCustom(`/Post/Delete/${itemId}`,'delete',null,(value)=>{window.location.reload()},(value)=>{
-                        alert('xoa khong thanh cong')
+                        alert('xóa không thành công')
                     })
 
                     }

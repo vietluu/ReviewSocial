@@ -56,7 +56,7 @@
                 <label asp-for="Thumbnail" class="control-label"></label>
                 <div class="input-group">
                     <div class="custom-file">
-                        <input name="thumbnailFile" type="file" class="custom-file-input">
+                        <input name="thumbnailFile" id="file_admin" type="file" class="custom-file-input">
                         <label class="custom-file-label">Choose file</label>
                     </div>
                 </div>
@@ -68,9 +68,15 @@
                 <a href="@(User.FindFirstValue(ClaimTypes.Role) == "Admin" && (url[1] == "admin" || url[1] == "PostManagement") ? "/admin/post" : "/")" class="btn btn-success">Quay lại</a>
             </div>
         </form>
+       
     </div>
 </div>
-
+<script>
+    const admin =document.getElementById('file_admin');
+    admin.addEventListener("change",()=>{
+        console.log(admin.files)
+    })
+</script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
