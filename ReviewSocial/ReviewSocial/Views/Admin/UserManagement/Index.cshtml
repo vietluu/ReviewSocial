@@ -1,6 +1,10 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@*@model PagedList.IPagedList<User>*@
+@model IEnumerable<User>
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 @{
     Layout = "_AdminLayout";
 }
@@ -17,81 +21,62 @@
                         </button>
                     </div>
                 </div>
-                <table class="table table-hover table-bordered" cellpadding="0" cellspacing="0" border="0">
+                <table class="table table-hover table-bordered" cellpadding="0" cellspacing="0" border="0" id="tblUser">
                     <thead>
                         <tr>
-                            <th width="10"><input type="checkbox" id="all"></th>
-                            <th>Mã người dùng</th>
+                            @*<th width="10"><input type="checkbox" id="all"></th>
+                            <th>Mã người dùng</th>*@
+                            <th>STT</th>
                             <th width="150">username</th>
-                            <th >Email</th> 
+                            <th>Email</th>
                             <th width="50">Ảnh đại diện</th>
                             <th>Ngày tham gia</th>
                             <th>Quyền</th>
-                            <th>Trạng thái</th>
+                            @* <th>Trạng thái</th>*@
                             <th width="100">Tính năng</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                            <td>#CD12837</td>
-                            <td>LêLê</td>
-                            <td>nguyenle123@gamil.com </td>
-                            <td><img class="img-card-person" src="~/img/avatar.jpg" alt=""></td>
-                            <td>12/02/1999</td>
-                            <td>Admin</td>
-                            <td>Bình thường</td>
-                            <td class="table-td-center">
-                                <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                        onclick="myFunction(this)">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                                        data-toggle="modal" data-target="#ModalUP">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                            <td>#CD12837</td>
-                            <td>LêLê</td>
-                            <td>nguyenle123@gamil.com </td>
-                            <td><img class="img-card-person" src="~/img/avatar.jpg" alt=""></td>
-                            <td>12/02/1999</td>
-                            <td>User</td>
-                            <td>Bình thường</td>
-                            <td class="table-td-center">
-                                <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                        onclick="myFunction(this)">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                                        data-toggle="modal" data-target="#ModalUP">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                            <td>#CD12837</td>
-                            <td>Lê123</td>
-                            <td>nguyenle1235@gamil.com </td>
-                            <td><img class="img-card-person" src="~/img/avatar.jpg" alt=""></td>
-                            <td>12/02/1998</td>
-                            <td>User</td>
-                            <td>Bình thường</td>
-                            <td class="table-td-center">
-                                <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                        onclick="myFunction(this)">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                                        data-toggle="modal" data-target="#ModalUP">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                            </td>
-                        </tr>
+                    <tbody id="userBody">
+                        @{
+                            var count = 1;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                @* <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                            <td>#CD12837</td>*@
+                                <td>@count</td>
+                                <td id="username-@item.Id">@item.Username</td>
+                                <td id="email-@item.Id">@item.Email </td>
+                                <td>
+                                    <img class="img-card-person" src="@(item.Avatar== null ? "/img/logo.jpg" : "/img/" + item.Avatar)" />
+                                    @*  <img class="img-card-person" src="~/img/avatar.jpg" alt="">*@
+                                </td>
+                                <td>@item.CreatedDate</td>
+                                <td id="role-@item.Id">@item.Role</td>
+
+                                @* <td>
+                            @(item.Status == true ? "Bình thường" : "Khóa")*@
+                                @*@item.Status*@
+                                @* </td>*@
+                                <td class="table-td-center">
+                                    <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                            data-toggle="modal" data-target="#deleteModal" onclick="getUserById(@item.Id)">
+                                        @*<i class="fa fa-trash"></i>*@
+                                        <i class="fa fa-lock" aria-hidden="true"></i>
+                                    </button>
+                                @*    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                                            data-toggle="modal" data-target="#exampleModal" onclick="getUserById(@item.Id)">
+                                        <i class="fa fa-edit"></i>
+                                    </button>*@
+                                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                                            data-toggle="modal" data-target="#exampleModal">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            count++;
+                        }
                     </tbody>
                 </table>
             </div>
@@ -140,7 +125,7 @@
                     </div>
                     <div class="form-group col-md-12">
                         <label class="control-label">Nhập email</label>
-                        <input class="form-control" type="email" id="name" placeholder="Nhập email">
+                        <input class="form-control" type="email" id="email" placeholder="Nhập email">
                         <small id="error" class="form-text text-danger"></small>
                     </div>
                     <div class="form-group col-md-12">
@@ -150,12 +135,12 @@
                     </div>
                     <div class="form-group col-md-12">
                         <label class="control-label">Nhập lại mật khẩu</label>
-                        <input class="form-control" type="password" id="password" placeholder="Nhập lại mật khẩu">
+                        <input class="form-control" type="password" id="repassword" placeholder="Nhập lại mật khẩu">
                         <small id="error" class="form-text text-danger"></small>
                     </div>
                     <div class="form-group col-md-12">
                         <label class="control-label">Quyền</label>
-                        <select class="form-control">
+                        <select class="form-control" id="role">
                             <option>User</option>
                             <option>Admin</option>
                         </select>
@@ -163,7 +148,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="btnCloseModal" data-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-primary" onclick="createCategory()">Lưu</button>
+                    <button type="button" class="btn btn-primary" onclick="checkUpdate()">Lưu</button>
                 </div>
             </div>
             <div class="modal-footer">
@@ -171,3 +156,177 @@
         </div>
     </div>
 </div>
+
+@*- Modal xóa -->*@
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel" style="color:black">Xác nhận xóa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa người dùng này?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCloseModalDelete" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Hủy</button>
+                <button type="button" class="btn btn-danger" onclick="deleteUser()">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*<script>
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    const repassword = document.getElementById("repassword");
+    const role = document.getElementById("role");
+    const error = document.getElementById("error");
+    var idUpdate = 0;
+
+    function checkUpdate() {
+        if (idUpdate == 0) {
+            createCategory();
+        } else {
+            updateCategory();
+        }
+    }
+
+    function createUser() {
+        if (email.value == "") {
+            error.innerHTML = "Vui lòng nhập email"
+            email.focus;
+            return;
+        }
+        if (password.value == "") {
+            error.innerHTML = "Vui lòng nhập mật khẩu"
+            password.focus;
+            return;
+        }
+        if (repassword.value == "") {
+            error.innerHTML = "Vui lòng nhập lại mật khẩu"
+            repassword.focus;
+            return;
+        }
+        //if (name.value.length >10) {
+        //    error.innerHTML = "Tên danh mục không vượt quá 10 kí tự"
+        //    name.focus;
+        //    return;
+        //}
+        var user = {
+            "email": email.value,
+            "password": password.value,
+            "rePassword": repassword.value,
+            "role": role.value
+        }
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+                var res = JSON.parse(this.responseText);
+                if (res.message != null) {
+                    error.innerHTML = res.message;
+                    return;
+                }
+                addRowToTable(res.id, res.username, res.email, res.avatar, res.createdDate, res.role);
+                document.getElementById('btnCloseModal').click();
+            }
+        };
+        request.open("POST", "/admin/user/create", true);
+        request.setRequestHeader("Content-type", "application/json");
+        request.send(JSON.stringify(user));
+    }
+
+    function addRowToTable(id, username, email, avatar, createdDate, role) {
+        var table = document.getElementById("tblUser");
+        var userBody = document.getElementById("userBody");
+        userBody.innerHTML = `<tr>
+                                    <td>${table.rows.length}</td>
+                                    <td>${username}</td>
+                                    <td>${email}</td>
+                                    <td>
+                                       <img class="img-card-person" src="${avatar == null ? "/img/logo.jpg" : "/img/" + avatar}" />
+                                    </td>
+                                    <td>${createdDate}</td>
+                                    <td>${role}</td>
+                                    <td class="table-td-center">
+                                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                                onclick="myFunction(this)">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                                                data-toggle="modal" data-target="#ModalUP">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </td>
+                                    </tr>`
+    }
+    // upadate dữ liệu
+    function getUserById(id) {
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var res = JSON.parse(this.responseText);
+                idUpdate = res.id;
+                email.value = res.email;
+                role.value = res.role;
+            }
+        };
+        request.open("GET", "/admin/user/" + id, true);
+        request.send();
+    }
+
+    function updateCategory() {
+        if (email.value == "") {
+            error.innerHTML = "Vui lòng nhập email"
+            email.focus;
+            return;
+        }
+        
+
+        var user = {
+            "email": email.value,
+            "password": password.value,
+            "rePassword": repassword.value,
+            "role": role.value
+        }
+
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+                var res = JSON.parse(this.responseText);
+                if (res.message != null) {
+                    error.innerHTML = res.message;
+                    return;
+                }
+                document.getElementById("email-" + res.id).innerHTML = res.email;
+                document.getElementById("role-" + res.id).innerHTML = res.role;
+                document.getElementById("btnCloseModal").click();
+            }
+        };
+        request.open("POST", "/UserManagement/Update?id=" + idUpdate + "&username=" + username, true);
+        request.setRequestHeader("Content-type", "application/json");
+        request.send(JSON.stringify(user));
+    }
+    function deleteUser() {
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText != "") {
+                    var res = JSON.parse(this.responseText);
+                    if (res.message != null) {
+                        alert(res.message);
+                        return;
+                    }
+                }
+                document.getElementById("btnCloseModalDelete").click();
+                //document.getElementById('tblCategory').deleteRow(document.getElementById("row-" + idUpdate).rowIndex);
+
+            }
+        };
+        request.open("POST", "/UserManagement/Delete?id=" + idUpdate, true);
+        request.send();
+    }
+</script>*@

@@ -21,9 +21,23 @@ namespace ReviewSocial.Repositories.Impl
             return user;
         }
 
+        public void Delete(User user)
+        {
+            if (user != null)
+            {
+                _context.Users.Remove(user);
+                _context.SaveChanges();
+            }
+        }
+
         public List<User> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _context.Users.Where(u=>u.Status ==true).ToList();
+        }
+
+        public User GetById(int id)
+        {
+            return _context.Users.SingleOrDefault(u=>u.Id == id);
         }
 
         public User GetUserByEmail(string email)

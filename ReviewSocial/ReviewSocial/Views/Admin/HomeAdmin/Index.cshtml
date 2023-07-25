@@ -1,5 +1,16 @@
-﻿@{
+﻿@*@model PagedList.IPagedList<Category>*@
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@model IEnumerable<ReviewSocial.Models.Category>
+@{
     Layout = "_AdminLayout";
+
+    var totalPostAllCategory = 0;
+    @foreach (var item in Model)
+    {
+        totalPostAllCategory += item.Posts.Count();
+    }
+
 }
 
 <div class="row">
@@ -17,5 +28,42 @@
     <div class="col-md-12 col-lg-12">
         Trang chủ
     </div>
+    <table class="table table-hover table-bordered d-none" id="tblCategory" cellpadding="0" cellspacing="0" border="0">
+        <thead>
+            <tr>
+                @*<th width="10"><input type="checkbox" id="all"></th>*@
+                <th width="10">STT</th>
+                <th>Danh mục - @totalPostAllCategory</th>
+                @* <th>Tổng số bài viết</th>*@
+                <th width="100">Tính năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var count = 1;
+            }
+            @foreach (var item in Model)
+            {
+                <tr id="row-@item.Id">
+                    @*  <td width="10"><input type="checkbox" name="check1" value="1"></td>*@
+                    <td>@count</td>
+                    <td id="category-@item.Id">@item.Name (@item.Posts.Count)</td>
+                    @*<td>@item.Posts.Count</td>*@
+                    <td class="table-td-center">
+                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                onclick="getCategoryById(@item.Id)" data-toggle="modal" data-target="#deleteModal">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                                onclick="getCategoryById(@item.Id)" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                    </td>
+                </tr>
+                count++;
+            }
+
+        </tbody>
+    </table>
     <!--END left-->
 </div>

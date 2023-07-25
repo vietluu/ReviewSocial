@@ -154,6 +154,15 @@ namespace ReviewSocial.Database
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("username");
+
+                entity.Property(e => e.LockCount)
+                    .HasDefaultValue(0)
+                    .HasColumnName("lock_count");
+
+                entity.Property(e => e.LockDate)
+                    .HasDefaultValue(null)
+                    .HasColumnType("datetime")
+                    .HasColumnName("lock_date");
             });
 
             OnModelCreatingPartial(modelBuilder);

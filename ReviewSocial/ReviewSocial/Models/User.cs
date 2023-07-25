@@ -23,6 +23,9 @@ namespace ReviewSocial.Models
         public string Avatar { get; set; }
         public string Role { get; set; }
         public bool? Status { get; set; }
+
+        public int? LockCount { get; set; }  
+        public DateTime LockDate { get; set; }
         
         [NotMapped]
         public string RePassword { get; set; }

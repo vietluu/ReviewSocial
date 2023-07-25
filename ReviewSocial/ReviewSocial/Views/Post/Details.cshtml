@@ -61,14 +61,14 @@
                     </div>
                     <div class="actions">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-link"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                            <button type="button" class="btn btn-link"><i class="fa fa-comments"></i> Comment</button>
+                          @*  <button type="button" class="btn btn-link"><i class="fa fa-thumbs-o-up"></i> Like</button>*@
+                            @*<button type="button" class="btn btn-link"><i class="fa fa-comments"></i> Comment</button>*@
 
                         </div>
-                        <div class="pull-right"><strong>1.789</strong> People view this</div>
+                        <div class="pull-right"><strong>@Model.View</strong> People view this</div>
                     </div>
 
-                    <div class="comment p-2 mt-2">
+@*                    <div class="comment p-2 mt-2">
                         <div class="media">
                             <a class="pull-left" href="#">
                                 <img class="media-object img-rounded" src="https://bootdey.com/img/Content/avatar/avatar1.png">
@@ -101,17 +101,17 @@
                                 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
 
                 </div>
-                <div class="panel-footer">
+                @*<div class="panel-footer">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Write a comment...">
                         <div class="input-group-append">
                             <button class="btn btn-primary f-s-12 rounded-corner" type="button">Comment</button>
                         </div>
                     </div>
-                </div>
+                </div>*@
             </div>
         </div>
         <div class="col-md-4">
@@ -171,3 +171,40 @@
         </div>
     </div>
 </div>
+
+@*<script>
+    const request = new XMLHttpRequest();
+    var url = window.location.href;
+    var parts = url.split("/");
+    var postId = parts.pop();
+    let check = false;
+    // hàm thời gian 2s thì tăng view
+    setTimeout(function () {
+            console.log('At the bottom!');
+            updateViewPost(postId);
+        }, 2000);
+    window.onscroll = function () {
+        // Nếu đã cuộn xuống cuối trang và hàm đã chạy 1 lần, thì không làm gì cả
+        if (check) {
+            return;
+        }
+
+        // Nếu cuộn xuống cuối trang, thực hiện các hành động
+        if ((window.innerHeight + Math.ceil(window.pageYOffset)) >= document.getElementById("container").offsetHeight) {
+            console.log('At the bottom!');
+            updateViewPost(postId);
+            check = true; // Đánh dấu đã cuộn xuống cuối trang
+        }
+    };
+
+    function updateViewPost(id) {
+        request.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                const id = this.responseText;
+            }
+        };
+        request.open("POST", "/Post/UpdateView", true);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.send("id=" + id);
+    }
+</script>*@

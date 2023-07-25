@@ -19,6 +19,8 @@ namespace ReviewSocial.Models
 
         [Display(Name ="Tiêu đề")]
         [Required(ErrorMessage = "Tiêu đề không được để trống")]
+        //[MaxLength(10, ErrorMessage ="Tiêu đề không vượt quá 10 ký tự")]
+        //[StringLength(10, ErrorMessage ="Tiêu đề không vượt quá 10 ký tự")]
         public string Title { get; set; }
 
         [Display(Name = "Danh mục")]

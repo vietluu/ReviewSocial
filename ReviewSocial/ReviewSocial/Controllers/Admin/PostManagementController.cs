@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.Security.Claims;
 using System.IO;
+using PagedList;
+using System.Linq;
 
 namespace ReviewSocial.Controllers.Admin
 {
@@ -27,10 +29,29 @@ namespace ReviewSocial.Controllers.Admin
             _contextAccessor = contextAccessor;
             _webHostEnvironment = webHostEnvironment;
         }
-
-        public IActionResult Index()
+        //hàm hiển thi dữ liệu ra bảng
+        public IActionResult Index(int page =1,string sortBy ="")
         {
-            return View(view + "Index.cshtml", _postRepository.GetAll());
+            ViewBag.Category = _categoryRepository.GetAll();
+            int PAGE_SIZE = 10;
+           
+            var posts = _postRepository.GetAll(sortBy);
+          
+            //tổng số trang
+            int totalPages = (int)Math.Ceiling((double)posts.Count() / PAGE_SIZE);
+            //số trang hiện tại
+            int pageNumber;
+            if (page > 0)
+                pageNumber = page > totalPages ? totalPages : page;
+            else
+                pageNumber = 1;
+
+            
+            var pagedList = new PagedList<Post>(posts, pageNumber, PAGE_SIZE);
+
+            return View(view + "Index.cshtml", pagedList);
+
+            //return View(view + "Index.cshtml", _postRepository.GetAll());
         }
 
         public string UploadFile(IFormFile file)
@@ -59,7 +80,16 @@ namespace ReviewSocial.Controllers.Admin
             }
             return "";
         }
+        // hàm xóa ảnh
+        public void DeleteImage(string imageName)
+        {
+            var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "img/posts/" + imageName);
 
+            if (System.IO.File.Exists(imagePath))
+            {
+                System.IO.File.Delete(imagePath);
+            }
+        }
         [HttpGet]
         public IActionResult Create()
         {
@@ -79,6 +109,20 @@ namespace ReviewSocial.Controllers.Admin
                 post.TotalReport = 0;
                 post.Status = true;
                 post.Like = 0;
+
+                //if (post.Title.Length > 10)
+                //{
+                //    ViewBag.ErrorTitle = "Tiêu đề không được vượt quá 10 ký tự";
+                //    ViewBag.Categories = _categoryRepository.GetAll();
+                //    return View(view + "CreateAndUpdate.cshtml");
+                //}
+                //if (_postRepository.CheckExitsTitle(post.Title))
+                //{
+                //    ViewBag.ErrorTitle = "Tiêu đề đã tồn tại";
+                //    ViewBag.Categories = _categoryRepository.GetAll();
+                //    return View(view + "CreateAndUpdate.cshtml");
+                //}
+
                 post.Thumbnail = UploadFile(thumbnailFile);
                 _postRepository.Create(post);
                 return RedirectToRoute("admin/post");
@@ -92,7 +136,7 @@ namespace ReviewSocial.Controllers.Admin
         {
             ViewBag.TitlePage = "Chỉnh sửa bài viết";
             ViewBag.Categories = _categoryRepository.GetAll();
-            return View(view + "CreateAndUpdate.cshtml", _postRepository.GetById(id));
+            return View(view + "CreateAndUpdate.cshtml", _postRepository.GetPostAndUserAndCategoryById(id));
         }
 
         [HttpPost]
@@ -102,8 +146,14 @@ namespace ReviewSocial.Controllers.Admin
             {
                 return NotFound();
             }
+
             if (ModelState.IsValid)
             {
+                //if(thumbnailFile != null)
+                //{
+                //    DeleteImage(post.Thumbnail);
+                //}
+
                 post.Thumbnail = (thumbnailFile != null && thumbnailFile.Length > 0) ? UploadFile(thumbnailFile) : post.Thumbnail;
                 post.UpdatedDate = DateTime.UtcNow;
                 _postRepository.Update(post);
@@ -117,8 +167,36 @@ namespace ReviewSocial.Controllers.Admin
         [HttpPost]
         public int Delete(int id)
         {
-            _postRepository.Delete(_postRepository.GetById(id));
+            _postRepository.Delete(_postRepository.GetPostAndUserAndCategoryById(id));
             return id;
         }
+        // Hàm tìm kiếm 
+        public IActionResult Search(string keyword)
+        {
+            if (string.IsNullOrEmpty(keyword))
+            {
+                return Ok(_postRepository.GetAll());
+            }
+            var posts = _postRepository.Search(keyword);
+            if (posts ==null)
+            {
+                return NotFound();
+            }
+            return Ok(posts);
+        }
+
+        public IActionResult GetPostById(int id)
+        {
+            try
+            {
+                return Ok(_postRepository.GetById(id));
+
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
     }
 }

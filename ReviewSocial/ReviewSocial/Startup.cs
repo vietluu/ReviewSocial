@@ -113,6 +113,10 @@ namespace ReviewSocial
                 name: "Post",
                 pattern: "post/{CategoryId}",
                 defaults: new { controller = "Post", action = "Index" });
+                endpoints.MapControllerRoute(
+                  name: "Post",
+                  pattern: "post/search",
+                  defaults: new { controller = "Post", action = "Search" });
                 #endregion
 
                 #region User
@@ -147,6 +151,10 @@ namespace ReviewSocial
                     name: "CategoryManagement",
                     pattern: "admin/category/delete/{id}",
                     defaults: new { controller = "CategoryManagement", action = "Delete" });
+                endpoints.MapControllerRoute(
+                    name: "searchCategoryManagement",
+                    pattern: "admin/category/search",
+                    defaults: new { controller = "CategoryManagement", action = "Search" });
                 #endregion
 
                 #region HomeAdmin
@@ -173,6 +181,10 @@ namespace ReviewSocial
                     name: "admin/post/delete",
                     pattern: "admin/post/delete",
                     defaults: new { controller = "PostManagement", action = "Delete" });
+                endpoints.MapControllerRoute(
+                    name: "admin/post/search",
+                    pattern: "admin/post/search",
+                    defaults: new { controller = "PostManagement", action = "Search" });
                 #endregion
 
                 #region UserManagement
@@ -180,6 +192,18 @@ namespace ReviewSocial
                     name: "UserManagement",
                     pattern: "admin/user",
                     defaults: new { controller = "UserManagement", action = "Index" });
+                endpoints.MapControllerRoute(
+                    name: "CreateUserManagement",
+                    pattern: "admin/user/create",
+                    defaults: new { controller = "UserManagement", action = "Create" });
+                endpoints.MapControllerRoute(
+                    name: "UpdateUserManagement",
+                    pattern: "admin/user/update",
+                    defaults: new { controller = "UserManagement", action = "Update" });
+                endpoints.MapControllerRoute(
+                    name: "GetUserManagement",
+                    pattern: "admin/user/{id}",
+                    defaults: new { controller = "UserManagement", action = "GetById" });
                 #endregion
             });
         }

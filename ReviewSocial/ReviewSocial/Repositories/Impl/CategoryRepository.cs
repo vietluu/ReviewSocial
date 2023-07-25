@@ -29,7 +29,7 @@ namespace ReviewSocial.Repositories.Impl
 
         public Category GetById(int id)
         {
-            return _context.Categories.SingleOrDefault(c => c.Id == id);
+            return _context.Categories.Include(c => c.Posts).SingleOrDefault(c => c.Id == id);
         }
         public Category GetByName(string name)
         {
@@ -53,6 +53,46 @@ namespace ReviewSocial.Repositories.Impl
                 _context.SaveChanges();
             }
 
+        }
+
+        // hàm tìm kiếm category bên ad
+        // hàm tìm kiếm post từ khóa nào đó
+        public List<Category> Search(string keyword)
+        {
+            return _context.Categories.Where(c => c.Name.Contains(keyword)).ToList();
+        }
+
+
+        // hàm sắp xếp
+        public List<Category> GetAll(string sortBy)
+        {
+            var categories = _context.Categories.AsQueryable();
+
+            #region Sorting
+            // Default sort by Title (Tiêu đề)
+            categories = categories.OrderByDescending(hh => hh.Name);
+
+            // Sắp xếp ngày tạo mới nhất lên đầu
+            //posts = posts.OrderByDescending(hh => hh.CreatedDate);
+
+            // Sắp xếp ngày tạo cũ nhất lên đầu
+            //posts = posts.OrderBy(hh => hh.CreatedDate);
+
+            if (!string.IsNullOrEmpty(sortBy))
+            {
+                switch (sortBy)
+                {
+                    case "category_name_asc":
+                        categories = categories.OrderBy(hh => hh.Name);
+                        break;
+                    case "category_name_desc":
+                        categories = categories.OrderByDescending(hh => hh.Name);
+                        break;
+                }
+            }
+            #endregion
+
+            return categories.ToList();
         }
     }
 }

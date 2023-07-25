@@ -1,0 +1,152 @@
+﻿@using Microsoft.AspNetCore.Http
+@using ReviewSocial.Repositories
+@model IEnumerable<Post>
+@inject ICategoryRepository ICategoryRepository;
+@{
+    ViewData["Title"] = "Tìm kiếm";
+    var categories = ICategoryRepository.GetAll();
+
+    var keyword = ViewBag.Keyword;
+    var CategoryId = ViewBag.CategoryId;
+    DateTime? from = ViewBag.From as DateTime?;
+    DateTime? to = ViewBag.To as DateTime?;
+}
+
+<div class="container">
+    
+    <div class="row">
+        <div class="col-lg-8 activity p-2">
+            <form action="/post/search" method="get">
+               @* <div class="form-group row">
+                    <label for="" class="col-sm-2 col-form-label text-right">Từ khóa</label>
+                    <div class="col-sm-3">
+                        <input type="text" name="keyword" class="form-control" placeholder="Từ khóa..." value="@(keyword != null ? keyword : "")">
+                    </div>
+
+                    <label for="" class="col-sm-2 col-form-label text-right">Danh mục</label>
+                    <div class="col-sm-3">
+                        <select class="custom-select" id="" name="subCategoryId">
+                            <option selected disabled value="">Choose...</option>
+                            @foreach (Category item in ViewBag.Categories)
+                            {
+                                @if (CategoryId != null && CategoryId == item.Id)
+                                {
+                                    <option value="@item.Id" selected>@item.Name</option>
+                                    continue;
+                                }
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>*@
+
+                <div class="form-group row">
+@*                    <label for="" class="col-sm-2 col-form-label text-right">Từ</label>
+                    <div class="col-sm-3">
+                        <input type="date" class="form-control" name="from" placeholder="Ngày bắt đầu" value="@from?.ToString("yyyy-MM-dd")">
+                    </div>
+
+                    <label for="" class="col-sm-2 col-form-label text-right">Đến</label>
+                    <div class="col-sm-3">
+                        <input type="date" class="form-control" name="to" placeholder="Ngày kết thúc" value="@to?.ToString("yyyy-MM-dd")">
+                    </div>*@
+
+                    @*<button type="submit" class="btn btn-primary mb-2 col-sm-2">Tìm kiếm</button>*@
+                </div>
+            </form>
+
+            <div class="row">
+            @if (Model != null)
+            {
+                @foreach (var item in Model.Where(i => i.Status == true))
+                {
+                    <div class="panel panel-default mb-3 bg-white p-2 rounded-3" id="post-@item.Id">
+                        <div class="panel-heading">
+                            <img src="@(item.User.Avatar == null ? "/img/avatar.jpg" : "/img/" + item.User.Avatar)" class="img-rounded">
+                            <div class="pull-right text-right">
+                                @if (@User.Identity.Name == @item.User.Username)
+                                {
+                                    <div class="dropdown">
+                                        @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
+                                        <button class="btn btn-secondary bg-transparent text-dark border-0" type="button" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                        <div class="dropdown-menu" style="margin-left: -155px;">
+
+                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-pencil" aria-hidden="true"></i> Chỉnh sửa bài viết</a>
+                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deletePostModal" onclick="getPostId(@item.Id)"><i class="fa fa-trash" aria-hidden="true"></i> Xóa bài</a>
+                                            <a class="dropdown-item" href="#" onclick="hidenPost(@item.Id)"><i class="fa fa-window-close" aria-hidden="true"></i> Ẩn bài viết</a>
+
+
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div><strong>@item.User.Username</strong></div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="text-center">
+                                <img src="@(item.Thumbnail == null ? "/img/logo.jpg" : "/img/posts/" + item.Thumbnail)" class="img-responsive w-50">
+                            </div>
+                            <div class="card-body text-center">
+                                <a href="/post/details/@item.Id" class="card-text">@item.Title</a>
+                            </div>
+                            <div class="actions">
+                                <div class="btn-group">
+                                    @*  <button type="button" class="btn btn-link"><i class="fa fa-thumbs-o-up"></i> Like</button>*@
+                                    <button type="button" class="btn btn-link"><i class="fa fa-comments"></i> Comment</button>
+                                </div>
+                                <div class="pull-right"><strong>@item.View</strong> People View this</div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            }
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-3 border-0">
+                <div class="card-header bg-primary text-white pt-2 pb-1">
+                    <h5>Tin hot</h5>
+                </div>
+                @if (Model != null)
+                {
+                    @foreach (Post item in ViewBag.Posts)
+                    {
+                        <div class="card border-0 mt-2">
+                            <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <img src="@(item.Thumbnail == null ? "/img/logo.jpg" : "/img/posts/" + item.Thumbnail)" class="card-img-top">
+                                    @* <img src="~/img/service-1.jpg" class="card-img-top" alt="Hình ảnh">*@
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body p-0 pl-2">
+                                        <a href="/post/details/@item.Id" class="card-title">@item.Title</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-8 activity p-2">
+            <nav aria-label="Page navigation">
+
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+
+            </nav>
+        </div>
+    </div>
+</div>

@@ -1,9 +1,14 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model IEnumerable<ReviewSocial.Models.Category>
+@model PagedList.IPagedList<Category>
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@*@model IEnumerable<ReviewSocial.Models.Category>*@
 @{
     Layout = "_AdminLayout";
+    string sortByValue = HttpContextAccessor.HttpContext.Request.Query["sortBy"];
+    string page = HttpContextAccessor.HttpContext.Request.Query["page"];
 }
 <div class="row">
     <div class="col-md-12">
@@ -17,18 +22,35 @@
                             Thêm danh mục mới
                         </button>
                     </div>
+                   @* <div class="col-md-6 d-flex justify-content-end">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <input type="text" class="form-control h-auto mr-2" name="keyword" id="keyword" placeholder="Tìm kiếm ...">
+                            </div>
+                            <button type="button" class="btn btn-primary m-auto" id="btnSearch">Tìm</button>
+                        </form>
+                    </div>*@
+                   @* <p id="countsearchresult">Đã tìm được </p>*@
                 </div>
+               
                 <table class="table table-hover table-bordered" id="tblCategory" cellpadding="0" cellspacing="0" border="0">
                     <thead>
                         <tr>
-                            @*<th width="10"><input type="checkbox" id="all"></th>*@
+                           @* <th width="10"><input type="checkbox" id="all"></th>*@
                             <th width="10">STT</th>
-                            <th>Danh mục</th>
-                            <th>Tổng số bài viết</th>
+                            <th width="150">
+                                <a href="/admin/category?page=@(page)&sortBy=@(sortByValue != "category_name_asc" ? "category_name_asc" : "category_name_desc")">Danh mục</a>
+                                @if (sortByValue == "category_name_asc" || sortByValue == "category_name_desc")
+                                {
+                                    <i class="fa fa-caret-@(sortByValue != "category_name_asc" ? "up" : "down")" aria-hidden="true"></i>
+                                }
+                            </th>
+                           @* <th>Danh mục</th>*@
+                           @* <th>Tổng số bài viết</th>*@
                             <th width="100">Tính năng</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="categoryBody">
                         @{
                             var count = 1;
                         }
@@ -38,7 +60,8 @@
                                 @*  <td width="10"><input type="checkbox" name="check1" value="1"></td>*@
                                 <td>@count</td>
                                 <td id="category-@item.Id">@item.Name</td>
-                                <td>@item.Posts.Count</td>
+                              @*  <td id="category-@item.Id">@item.Name (@item.Posts.Count)</td>*@
+                                @*<td>@item.Posts.Count</td>*@
                                 <td class="table-td-center">
                                     <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
                                             onclick="getCategoryById(@item.Id)" data-toggle="modal" data-target="#deleteModal">
@@ -58,27 +81,28 @@
             </div>
             <nav aria-label="...">
                 <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link">&laquo;</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item active" aria-current="page">
-                        <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item" aria-current="page">
-                        <a class="page-link" href="#">4</a>
-                    </li>
-                    <li class="page-item" aria-current="page">
-                        <a class="page-link" href="#">5</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">&raquo;</a>
-                    </li>
+                    @if (!Model.IsFirstPage)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="/admin/category?sortBy=@sortByValue">&laquo;</a>
+                        </li>
+                        <li class="page-item @(Model.IsFirstPage ? "disabled" : "")">
+                            <a class="page-link" href="/admin/category?page=@(Model.PageNumber - 1)&sortBy=@sortByValue">&#8249;</a>
+                        </li>
+                    }
+                    @for (int i = 1; i <= Model.PageCount; i++)
+                    {
+                        <li class="page-item @(i == Model.PageNumber ? "active" : "")"><a class="page-link" href="/admin/category?page=@i&sortBy=@sortByValue">@i</a></li>
+                    }
+                    @if (!Model.IsLastPage)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="/admin/category?page=@(Model.PageNumber + 1)&sortBy=@sortByValue">&#8250;</a>
+                        </li>
+                        <li class="page-item @(Model.IsLastPage ? "disabled" : "")">
+                            <a class="page-link" href="/admin/category?page=@(Model.PageCount)&sortBy=@sortByValue">&raquo;</a>
+                        </li>
+                    }
                 </ul>
             </nav>
         </div>
@@ -156,6 +180,11 @@
             name.focus;
             return;
         }
+        //if (name.value.length >10) {
+        //    error.innerHTML = "Tên danh mục không vượt quá 10 kí tự"
+        //    name.focus;
+        //    return;
+        //}
         var category = {
             "name": name.value
         }
@@ -207,7 +236,7 @@
     function addRowToTable(id, name) {
         var table = document.getElementById("tblCategory");
         var row = table.insertRow();
-        row.id = "row-"+id;
+        row.id = "row-" + id;
         var cell1 = row.insertCell(0);
         cell1.innerHTML = table.rows.length - 1;
 
@@ -215,14 +244,33 @@
         cell2.id = "category-" + id;
         cell2.innerHTML = name;
 
-        var cell3 = row.insertCell(2);
-        cell3.innerHTML = '0';
+        //var cell3 = row.insertCell(2);
+        //cell3.innerHTML = '0';
 
-        var cell4 = row.insertCell(3);
-        cell4.className = "table-td-center";
-        cell4.innerHTML = '<button class="btn btn-primary btn-sm trash" type="button" title="Xóa" onclick="getCategoryById(' + id + ')" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i></button>'
+        var cell3 = row.insertCell(2);
+        cell3.className = "table-td-center";
+        cell3.innerHTML = '<button class="btn btn-primary btn-sm trash" type="button" title="Xóa" onclick="getCategoryById(' + id + ')" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i></button>'
             + '<button class="btn btn-primary btn-sm edit" type = "button" title = "Sửa" id = "show-emp" onclick="getCategoryById(' + id + ')" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-edit"></i></button>';
     }
+    //function addRowToTable(id, name) {
+    //    var table = document.getElementById("tblCategory");
+    //    var row = table.insertRow();
+    //    row.id = "row-"+id;
+    //    var cell1 = row.insertCell(0);
+    //    cell1.innerHTML = table.rows.length - 1;
+
+    //    var cell2 = row.insertCell(1);
+    //    cell2.id = "category-" + id;
+    //    cell2.innerHTML = name;
+
+    //    var cell3 = row.insertCell(2);
+    //    cell3.innerHTML = '0';
+
+    //    var cell4 = row.insertCell(3);
+    //    cell4.className = "table-td-center";
+    //    cell4.innerHTML = '<button class="btn btn-primary btn-sm trash" type="button" title="Xóa" onclick="getCategoryById(' + id + ')" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i></button>'
+    //        + '<button class="btn btn-primary btn-sm edit" type = "button" title = "Sửa" id = "show-emp" onclick="getCategoryById(' + id + ')" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-edit"></i></button>';
+    //}
     function getCategoryById(id) {
         var name = document.getElementById("name");
 
@@ -248,12 +296,61 @@
         var request = new XMLHttpRequest();
         request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText != "") {
+                    var res = JSON.parse(this.responseText);
+                    if (res.message != null) {
+                        alert(res.message);
+                        return;
+                    }
+                }
                 document.getElementById("btnCloseModalDelete").click();
                 document.getElementById('tblCategory').deleteRow(document.getElementById("row-" + idUpdate).rowIndex);
+            
             }
         };
         request.open("POST", "/admin/category/delete/" + idUpdate, true);
         request.send();
     }
 
+        // hàm search
+    const btnSearch = document.getElementById("btnSearch");
+
+    btnSearch.onclick = search;
+    document.getElementById("keyword").oninput = search;
+
+    function search() {
+        var keyword = document.getElementById("keyword").value;
+        console.log("keyword: " + keyword);
+        const request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var res = JSON.parse(this.responseText);
+               // document.getElementById("countsearchresult").innerHTML = "Đã tìm được " + res.length + " kết quả";
+                var html = "";
+                for (var i = 0; i < res.length; i++) {
+                    var category = res[i];
+                    console.log("category: " + category);
+                    html += `<tr id="row-${category.id}">
+                                        <td>${i + 1}</td>
+                                            <td id="category-${category.id}">${category.name}</td>
+
+                                        <td class="table-td-center">
+                                            <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                                    onclick="getCategoryById(${category.id})" data-toggle="modal" data-target="#deleteModal">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                            <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                                                    onclick="getCategoryById(${category.id})" data-toggle="modal" data-target="#exampleModal">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                        </td>
+                                    </tr>`;
+                }
+                document.getElementById("categoryBody").innerHTML = html;
+            }
+        };
+        //request.open("GET", '/admin/post/Search/' + encodeURIComponent(keyword), true);
+        request.open("GET", '/admin/category/search?keyword=' + keyword, true);
+        request.send();
+    }
 </script>

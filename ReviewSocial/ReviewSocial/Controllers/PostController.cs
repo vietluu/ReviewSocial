@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Net;
 using System.IO;
+using System.Linq;
 
 namespace ReviewSocial.Controllers
 {
@@ -36,14 +37,17 @@ namespace ReviewSocial.Controllers
         public IActionResult Index(int CategoryId)
         {
             ViewBag.Category = _categoryRepository.GetById(CategoryId);
+            ViewBag.Posts =_postRepository.GetAll().Take(3);
             var posts = _postRepository.GetAllByCategoryId(CategoryId);
             return View(posts);
             
         }
         public IActionResult Details(int id)
         {
-
-            return View(_postRepository.GetById(id));
+            var post = _postRepository.GetPostAndUserAndCategoryById(id);
+            post.View = post.View + 1;
+            _postRepository.Update(post);
+            return View(post);
         }
 
 
@@ -102,9 +106,19 @@ namespace ReviewSocial.Controllers
             }
             return "";
         }
+        
         [HttpPost]
         public IActionResult Create( Post post ,IFormFile file)
         {
+            //hàm check trùng
+            //if (_postRepository.CheckExitsTitle(post.Title))
+            //{
+            //    return Ok(new
+            //    {
+            //        message = "Tiêu đề đã tồn tại"
+            //    });
+            //}
+
             try
             {
                 post.CreatedDate = DateTime.UtcNow;
@@ -124,5 +138,81 @@ namespace ReviewSocial.Controllers
             }
         }
 
+        public IActionResult GetPostById(int id)
+        {
+            try
+            {
+                return Ok(_postRepository.GetById(id));
+
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+        
+        //sửa bài viết user
+        [HttpPost]
+        public Post Update(Post post, IFormFile file)
+        {
+            var postFound = _postRepository.GetById(post.Id);
+            postFound.Title = post.Title;
+            postFound.Content = post.Content;
+            if (file != null)
+            {
+                postFound.Thumbnail = UploadFile(file);
+            }
+            postFound.CategoryId = post.CategoryId;
+            postFound.UpdatedDate = DateTime.Now;
+            _postRepository.Update(postFound);
+            return postFound;
+        }
+        
+        [HttpPost]
+        public int Delete(int id)
+        {
+            var postFound = _postRepository.GetById(id);
+            _postRepository.Delete(postFound);
+            return id;
+        }
+
+        // hàm update view
+        [HttpPost]
+        public IActionResult UpdateView (int id)
+        {
+            var post = _postRepository.GetById(id);
+            post.View = post.View + 1;
+            _postRepository.Update(post);
+            return Ok();
+        }
+
+        // Hàm ẩn bài viết
+        [HttpPost]
+        public IActionResult HidenPost(int id)
+        {
+            var post = _postRepository.GetById(id);
+            post.Status = false;
+            _postRepository.Update(post);
+            return Ok();
+        }
+
+        // hàm tìm kiếm ở trang chủ
+        [HttpGet]
+        public IActionResult Search(string keyword, int? subCategoryId, DateTime? from, DateTime? to)
+        {
+            from = from?.Add(new TimeSpan(00, 00, 00));
+            to = to?.Add(new TimeSpan(23, 59, 59));
+
+            var posts = _postRepository.Search(keyword, subCategoryId, from, to);
+
+            ViewBag.Posts = _postRepository.GetAll().OrderByDescending(p => p.View).Take(3);
+            ViewBag.Categories = _categoryRepository.GetAll();
+
+            ViewBag.Keyword = keyword;
+            ViewBag.CategoryId = subCategoryId;
+            ViewBag.From = from;
+            ViewBag.To = to;
+            return View(posts);
+        }
     }
 }

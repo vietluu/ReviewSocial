@@ -62,17 +62,110 @@ namespace ReviewSocial.Controllers
                 TempData["Message"] = "Tài khoản không tồn tại!";
                 return RedirectToRoute("login");
             }
+
+            if ((bool)!user.Status)
+            {
+                TempData["Message"] = "Tài khoản của bạn đã bị khóa";
+
+                #region Khóa tài khoản 1 phút
+                // Kiểm tra nếu tài khoản bị khoá và thời gian dưới 1 phút
+                //if (user.LockCount >= 3 && DateTime.Now.Subtract(user.LockDate).TotalMinutes <= 1)
+                //{
+                //    TempData["Message"] = "Tài khoản đã bị khoá trong 1 phút";
+                //}
+                //else if (user.LockCount >= 3 && DateTime.Now.Subtract(user.LockDate).TotalMinutes > 1)
+                //{
+                //    TempData["Message"] = "";
+                //    user.Status = true;
+                //    user.LockCount = 0;
+                //    if (user.Password != password)
+                //    {
+                //        TempData["Message"] = "Thông tin tài khoản hoặc mật khẩu không chính xác!";
+                //        user.LockCount++;
+                //        if (user.LockCount == 3)
+                //        {
+                //            user.Status = false;
+                //            user.LockDate = DateTime.Now;
+                //            TempData["Message"] = "Tài khoản của bạn đã bị khóa 1 phút";
+                //        }
+                //        _userRepository.Update(user);
+
+                //        return RedirectToRoute("login");
+                //    }
+
+                //    await setDataToClaim(user);
+
+                //    HttpContext.Session.SetString("id", user.Id.ToString());
+                //    HttpContext.Session.SetString("email", user.Email);
+                //    HttpContext.Session.SetString("username", user.Username);
+
+                //    if (user.Avatar != null)
+                //        HttpContext.Session.SetString("avatar", user.Avatar);
+
+                //    user.LockCount = 0;
+                //    _userRepository.Update(user);
+
+                //    if (user.Role == "Admin")
+                //    {
+                //        return RedirectToRoute("admin");
+                //    }
+                //    return RedirectToAction("Index", "Home");
+                //}
+                //else
+                //{
+                //    TempData["Message"] = "Tài khoản của bạn đã bị khóa 1 phút";
+                //    user.LockCount++;
+                //    if (user.LockCount >= 3)
+                //    {
+                //        user.Status = false;
+                //        user.LockDate = DateTime.UtcNow;
+                //        TempData["Message"] = "Tài khoản của bạn đã bị khóa 1 phút";
+                //    }
+                //}
+                #endregion
+
+                _userRepository.Update(user);
+
+                return RedirectToRoute("login");
+            }
+
             if (user.Password != password)
             {
+                #region Khóa sau 3 lần sai
+                //if ((bool)!user.Status)
+                //{
+                //    TempData["Message"] = "Tài khoản của bạn đã bị khóa";
+                //    return RedirectToRoute("Login");
+                //}
+                #endregion
+
                 TempData["Message"] = "Thông tin tài khoản hoặc mật khẩu không chính xác!";
+
+                #region Khóa sau 3 lần sai
+                //user.LockCount = user.LockCount + 1;
+                //if (user.LockCount == 3)
+                //{
+                //    user.Status = false;
+                //    user.LockDate = DateTime.Now;
+                //    TempData["Message"] = "Tài khoản của bạn đã bị khóa 1 phút";
+                //}
+                #endregion
+
+                _userRepository.Update(user);
                 return RedirectToRoute("login");
             }
             await setDataToClaim(user);
+
             HttpContext.Session.SetString("id", user.Id.ToString());
             HttpContext.Session.SetString("email", user.Email);
             HttpContext.Session.SetString("username", user.Username);
+            
             if (user.Avatar != null) 
-            HttpContext.Session.SetString("avatar", user.Avatar);
+                HttpContext.Session.SetString("avatar", user.Avatar);
+            
+            user.LockCount = 0;
+            _userRepository.Update(user);
+            
             if (user.Role == "Admin")
             {
                 return RedirectToRoute("admin");
@@ -147,6 +240,7 @@ namespace ReviewSocial.Controllers
 
         //    return RedirectToAction("Login", "Auth");
         //}
+
         [HttpPost]
         public IActionResult Register(User user)
         {
@@ -166,16 +260,17 @@ namespace ReviewSocial.Controllers
             {
                 TempData["message"] = "Mật khẩu phải có độ dài ít nhất 8 kí tự, bao gồm chữ hoa, chữ thường, số và kí tự đặc biệt!";
                 return RedirectToRoute("register");
-
             }
             if (user.Password != user.RePassword)
             {
                 TempData["message"] = "Mật khẩu nhập lại không khớp!";
                 return RedirectToRoute("register");
             }
-            user.CreatedDate = DateTime.UtcNow;
+            user.CreatedDate = DateTime.Now;
             user.Role = "User";
             user.Status = true;
+            user.LockCount = 0;
+            user.LockDate = DateTime.Now;
             _userRepository.Create(user);
 
             return RedirectToAction("Login", "Auth");

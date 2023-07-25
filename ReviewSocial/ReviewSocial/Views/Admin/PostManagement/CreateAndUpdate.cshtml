@@ -37,7 +37,7 @@
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <span asp-validation-for="Title" class="text-danger">@Html.Raw(ViewBag.ErrorTitle)</span>
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
