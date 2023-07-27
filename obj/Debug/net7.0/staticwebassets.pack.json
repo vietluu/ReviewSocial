@@ -5,322 +5,6 @@
       "PackagePath": "staticwebassets\\ReviewSocial.bundle.scp.css"
     },
     {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\LICENSE.md",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\LICENSE.md"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\README.md",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\README.md"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\ckeditor.d.ts",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\ckeditor.d.ts"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\ckeditor.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\ckeditor.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\ckeditor.js.map",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\ckeditor.js.map"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\index.html",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\index.html"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\sample\\css\\sample.css",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\sample\\css\\sample.css"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\sample\\img\\bg.png",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\sample\\img\\bg.png"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\sample\\img\\github.svg",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\sample\\img\\github.svg"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\sample\\img\\logo.svg",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\sample\\img\\logo.svg"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\sample\\img\\umbrellas.jpg",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\sample\\img\\umbrellas.jpg"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\af.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\af.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\ar.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\ar.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\ast.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\ast.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\az.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\az.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\bg.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\bg.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\bn.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\bn.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\bs.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\bs.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\ca.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\ca.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\cs.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\cs.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\da.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\da.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\de-ch.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\de-ch.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\de.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\de.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\el.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\el.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\en-au.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\en-au.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\en-gb.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\en-gb.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\eo.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\eo.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\es-co.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\es-co.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\es.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\es.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\et.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\et.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\eu.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\eu.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\fa.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\fa.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\fi.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\fi.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\fr.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\fr.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\gl.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\gl.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\gu.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\gu.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\he.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\he.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\hi.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\hi.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\hr.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\hr.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\hu.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\hu.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\id.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\id.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\it.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\it.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\ja.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\ja.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\jv.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\jv.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\km.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\km.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\kn.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\kn.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\ko.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\ko.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\ku.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\ku.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\lt.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\lt.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\lv.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\lv.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\ms.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\ms.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\nb.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\nb.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\ne.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\ne.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\nl.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\nl.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\no.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\no.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\oc.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\oc.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\pl.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\pl.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\pt-br.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\pt-br.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\pt.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\pt.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\ro.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\ro.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\ru.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\ru.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\si.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\si.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\sk.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\sk.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\sl.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\sl.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\sq.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\sq.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\sr-latn.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\sr-latn.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\sr.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\sr.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\sv.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\sv.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\th.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\th.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\tk.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\tk.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\tr.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\tr.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\tt.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\tt.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\ug.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\ug.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\uk.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\uk.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\ur.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\ur.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\uz.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\uz.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\vi.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\vi.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\zh-cn.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\zh-cn.js"
-    },
-    {
-      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\assets\\vendor\\ckeditor5-build-classic\\translations\\zh.js",
-      "PackagePath": "staticwebassets\\assets\\vendor\\ckeditor5-build-classic\\translations\\zh.js"
-    },
-    {
       "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\css\\profile.css",
       "PackagePath": "staticwebassets\\css\\profile.css"
     },
@@ -341,12 +25,140 @@
       "PackagePath": "staticwebassets\\images\\home\\tải xuống.jpg"
     },
     {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\1ee192c9-fee4-40f6-9353-91d27b4eebc7_1.jpg",
+      "PackagePath": "staticwebassets\\img\\1ee192c9-fee4-40f6-9353-91d27b4eebc7_1.jpg"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\22.png",
+      "PackagePath": "staticwebassets\\img\\22.png"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\638255923777146967.png",
+      "PackagePath": "staticwebassets\\img\\638255923777146967.png"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\638255927921926713.png",
+      "PackagePath": "staticwebassets\\img\\638255927921926713.png"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\638255929753066204.png",
+      "PackagePath": "staticwebassets\\img\\638255929753066204.png"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\638255930752106104.png",
+      "PackagePath": "staticwebassets\\img\\638255930752106104.png"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\638255931325385314.png",
+      "PackagePath": "staticwebassets\\img\\638255931325385314.png"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\638255931745295072.png",
+      "PackagePath": "staticwebassets\\img\\638255931745295072.png"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\638255932617991579.png",
+      "PackagePath": "staticwebassets\\img\\638255932617991579.png"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\638255935310503312.png",
+      "PackagePath": "staticwebassets\\img\\638255935310503312.png"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\638258519288524243.jpg",
+      "PackagePath": "staticwebassets\\img\\638258519288524243.jpg"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\638258519648950540.png",
+      "PackagePath": "staticwebassets\\img\\638258519648950540.png"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\67e38dca-dfc4-43da-b90f-badda79ec76b_IQFT3697.JPEG",
+      "PackagePath": "staticwebassets\\img\\67e38dca-dfc4-43da-b90f-badda79ec76b_IQFT3697.JPEG"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\78659d56-98fd-471b-a48c-8fb8e47b19b4_3.jpg",
+      "PackagePath": "staticwebassets\\img\\78659d56-98fd-471b-a48c-8fb8e47b19b4_3.jpg"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\IQFT3697.JPEG",
+      "PackagePath": "staticwebassets\\img\\IQFT3697.JPEG"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\Review.png",
+      "PackagePath": "staticwebassets\\img\\Review.png"
+    },
+    {
       "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\avatar.jpg",
       "PackagePath": "staticwebassets\\img\\avatar.jpg"
     },
     {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\c400f0bd-b672-485d-a55a-6f683b0cc417_4.jpg",
+      "PackagePath": "staticwebassets\\img\\c400f0bd-b672-485d-a55a-6f683b0cc417_4.jpg"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\d636b8a1-c8e8-46a7-bff5-3bcc79cb151f_Screenshot_2.png",
+      "PackagePath": "staticwebassets\\img\\d636b8a1-c8e8-46a7-bff5-3bcc79cb151f_Screenshot_2.png"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\f481cbcc-1f08-4684-8f71-2e4eed494823_IQFT3697.JPEG",
+      "PackagePath": "staticwebassets\\img\\f481cbcc-1f08-4684-8f71-2e4eed494823_IQFT3697.JPEG"
+    },
+    {
       "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\logo.jpg",
       "PackagePath": "staticwebassets\\img\\logo.jpg"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\logot1.png",
+      "PackagePath": "staticwebassets\\img\\logot1.png"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\posts\\638252717429539566.jpg",
+      "PackagePath": "staticwebassets\\img\\posts\\638252717429539566.jpg"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\posts\\638253359333332859.png",
+      "PackagePath": "staticwebassets\\img\\posts\\638253359333332859.png"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\posts\\638253361872918932.jpg",
+      "PackagePath": "staticwebassets\\img\\posts\\638253361872918932.jpg"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\posts\\638253363252881678.jpg",
+      "PackagePath": "staticwebassets\\img\\posts\\638253363252881678.jpg"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\posts\\638254166418601030.rar",
+      "PackagePath": "staticwebassets\\img\\posts\\638254166418601030.rar"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\posts\\638254166674070246.html",
+      "PackagePath": "staticwebassets\\img\\posts\\638254166674070246.html"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\posts\\638254166831344331.png",
+      "PackagePath": "staticwebassets\\img\\posts\\638254166831344331.png"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\posts\\638254166899404505.jpg",
+      "PackagePath": "staticwebassets\\img\\posts\\638254166899404505.jpg"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\posts\\638254361500326156.jpg",
+      "PackagePath": "staticwebassets\\img\\posts\\638254361500326156.jpg"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\posts\\638258692577607708.png",
+      "PackagePath": "staticwebassets\\img\\posts\\638258692577607708.png"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\posts\\638258711937075361.jpg",
+      "PackagePath": "staticwebassets\\img\\posts\\638258711937075361.jpg"
+    },
+    {
+      "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\img\\posts\\638258732091200945.jpg",
+      "PackagePath": "staticwebassets\\img\\posts\\638258732091200945.jpg"
     },
     {
       "Id": "D:\\bgi\\ReviewSocial\\wwwroot\\js\\libraryCustom.js",

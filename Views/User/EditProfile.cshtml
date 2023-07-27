@@ -1,0 +1,151 @@
+﻿@using Microsoft.AspNetCore.Http;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Chỉnh sửa thông tin cá nhân";
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+            padding-top: 4.2rem;
+            padding-bottom: 4.2rem;
+            background: rgba(0, 0, 0, 0.76);
+        }
+
+        a {
+            text-decoration: none !important;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Kaushan Script', cursive;
+        }
+
+        .myform {
+            position: relative;
+            display: -ms-flexbox;
+            display: flex;
+            padding: 1rem;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            width: 100%;
+            pointer-events: auto;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid rgba(0,0,0,.2);
+            border-radius: 1.1rem;
+            outline: 0;
+            max-width: 500px;
+        }
+
+        .tx-tfm {
+            text-transform: uppercase;
+        }
+
+        .mybtn {
+            border-radius: 50px;
+        }
+
+        .login-or {
+            position: relative;
+            color: #aaa;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .span-or {
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: -2px;
+            margin-left: -25px;
+            background-color: #fff;
+            width: 50px;
+            text-align: center;
+        }
+
+        form .error {
+            color: #ff0000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 mx-auto">
+                <div id="first">
+                    <div class="myform form ">
+                        <div class="logo mb-3">
+                            <div class="col-md-12 text-center">
+                                <h1>Chỉnh sửa thông tin</h1>
+                            </div>
+                        </div>
+                        <form asp-action="EditProfile" method="post" name="editprofile" enctype="multipart/form-data">
+                            @*<div class="form-group">
+                                <label for="exampleInputEmail1">Email</label>
+                                <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
+                            </div>*@
+                            <div class="form-group">
+                                 <label for="exampleInputEmail1">Tên đăng nhập</label>
+                                @{
+                                    //var username = @User.Identity.Name == null ? "" : @User.Identity.Name;
+                                    var username = Context.Session.GetString("username") == null ? "" : Context.Session.GetString("username");
+                                }
+                                <input type="text" name="username" class="form-control" id="username" value="@username">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Ảnh đại diện</label>
+                                <div class="input-group mb-3">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="imageAvatarFile" name="imageAvatarFile" aria-describedby="inputGroupFileAddon01">
+                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                    </div>
+                                </div>
+                                @{
+                                    var avatar = Context.Session.GetString("avatar") == null ? "/img/avatar.jpg" : "/img/" + Context.Session.GetString("avatar");
+                                }
+                                <img class="app-sidebar__user-avatar" src="@avatar" width="50px" alt="User Image">
+                            </div>
+                           @* <div class="form-group">
+                                <label for="exampleInputEmail1">Nhập lại mật khẩu</label>
+                                <input type="password" name="RePassword" id="repassword" class="form-control">
+                            </div>
+                            <div class="col-md-12 text-center ">
+                                <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Đăng Ký</button>
+                            </div>*@
+                            <div class="form-group mt-3">
+                                <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Chỉnh sửa</button>
+                                <p class="text-center"> <a href="/user/profile" id="signup">Quay lại</a></p>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

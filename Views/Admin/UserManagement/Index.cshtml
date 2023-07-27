@@ -11,10 +11,10 @@
 
                 <div class="row element-button">
                     <div class="col-sm-2">
-                        <a class="btn btn-add btn-sm" href="form-add-nhan-vien.html" title="Thêm">
+                        <button class="btn btn-add btn-sm" href="form-add-nhan-vien.html" title="Thêm" data-toggle="modal" data-target="#exampleModal">
                             <i class="fa fa-plus"></i>
                             Thêm người dùng mới
-                        </a>
+                        </button>
                     </div>
                 </div>
                 <table class="table table-hover table-bordered" cellpadding="0" cellspacing="0" border="0">
@@ -37,7 +37,7 @@
                             <td>#CD12837</td>
                             <td>LêLê</td>
                             <td>nguyenle123@gamil.com </td>
-                            <td><img class="img-card-person" src="~/img/avatar.jpg" alt=""></td>
+                            <td><img  class="img-card-person" src="~/img/avatar.jpg" alt="avatar"></td>
                             <td>12/02/1999</td>
                             <td>Admin</td>
                             <td>Bình thường</td>
@@ -57,7 +57,7 @@
                             <td>#CD12837</td>
                             <td>LêLê</td>
                             <td>nguyenle123@gamil.com </td>
-                            <td><img class="img-card-person" src="~/img/avatar.jpg" alt=""></td>
+                            <td><img class="img-card-person" src="~/img/avatar.jpg" alt="avatar"></td>
                             <td>12/02/1999</td>
                             <td>User</td>
                             <td>Bình thường</td>
@@ -77,7 +77,7 @@
                             <td>#CD12837</td>
                             <td>Lê123</td>
                             <td>nguyenle1235@gamil.com </td>
-                            <td><img class="img-card-person" src="~/img/avatar.jpg" alt=""></td>
+                            <td><img class="img-card-person" src="~/img/avatar.jpg" alt="avatar"></td>
                             <td>12/02/1998</td>
                             <td>User</td>
                             <td>Bình thường</td>
@@ -120,6 +120,54 @@
                     </li>
                 </ul>
             </nav>
+        </div>
+    </div>
+</div>
+
+@*- Modal -->*@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group  col-md-12">
+                        <div class="modal-header">
+                            <h5 style="color:black">Thêm người dùng mới</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" style="color:black; font-size: 20px">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Nhập email</label>
+                        <input class="form-control" type="email" id="name" placeholder="Nhập email">
+                        <small id="error" class="form-text text-danger"></small>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Nhập mật khẩu</label>
+                        <input class="form-control" type="password" id="password" placeholder="Nhập mật khẩu">
+                        <small id="error" class="form-text text-danger"></small>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Nhập lại mật khẩu</label>
+                        <input class="form-control" type="password" id="password" placeholder="Nhập lại mật khẩu">
+                        <small id="error" class="form-text text-danger"></small>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Quyền</label>
+                        <select class="form-control">
+                            <option>User</option>
+                            <option>Admin</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btnCloseModal" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" onclick="createCategory()">Lưu</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
         </div>
     </div>
 </div>

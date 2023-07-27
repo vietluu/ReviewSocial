@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 #nullable disable
@@ -12,6 +12,7 @@ namespace ReviewSocial.Models
         public int? UserId { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string Content { get; set; }
+        public string simage { get; set; }
 
         public virtual Post Posts { get; set; }
         public virtual User User { get; set; }

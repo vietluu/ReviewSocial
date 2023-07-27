@@ -1,201 +1,381 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@model Tuple<IEnumerable<Category>, IEnumerable<Post>>
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    ViewData["Title"] = "Trang chủ";
 }
 
-<link href="~/lib/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container">
+<div class="container p-2">
     <div class="row">
-        <div class="col-lg-8 activity p-2">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb bg-transparent p-0">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Sữa rửa mặt</a></li>
-                </ol>
-                <div>
-                    <p style="font-family:'Matura MT Script Capitals'">Chuyên mục -ReviewBeauty</p>
+        <div class="col-lg-9 col-md-12 activity p-2 newsfeed">
+            @* <div class="panel panel-default mb-4 bg-white p-2 rounded-sm">
+                <div class="row">
+                    <div class="col-md-1 m-auto" style="width: 70px;">
+                        @{
+                            var avatar = Context.Session.GetString("avatar") == null ? "/img/avatar.jpg" : "/img/" + Context.Session.GetString("avatar");
+                        }
+                        <img width="40" height="40" class="img-rounded img-circle cover-image" src="@avatar" alt="">
+                     
+                    </div>
+                    <div class="col-md-11">
+                        <input type="text" class="form-control" placeholder="Bạn đang nghĩ gì?" readonly data-toggle="modal" data-target="#exampleModal">
+                    </div>
                 </div>
-            </nav>
-            <div class="panel panel-default mb-3 bg-white p-2 rounded-3">
+                <div class="panel-footer">
+                </div>
+            </div> *@
+          @if(Model.Item2 != null){
+             @foreach (var item in Model.Item2.Reverse())
+           {
+                
+                <div class="panel panel-default mb-3 bg-white p-2 rounded-sm">
                 <div class="panel-heading">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-rounded">
+                    <img src="@Url.Content("~/img/")@item.User.Avatar" width="40" height="40" class="img-rounded img-circle cover-image">
                     <div class="pull-right text-right">
+                        @*<div class="card-text"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>*@
                         <div class="dropdown">
                             @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
                             <button class="btn btn-secondary bg-transparent text-dark border-0" type="button" data-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-ellipsis-h"></i>
                             </button>
                             <div class="dropdown-menu" style="margin-left: -155px;">
-                                <a class="dropdown-item" href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Chỉnh sửa bài viết</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Xóa bài</a>
+                               @if(item.UserId == Convert.ToInt32(Accessor.HttpContext.Session.GetString("id"))){
+                                
+                                <a class="dropdown-item" data-toggle="modal" data-target="#exampleModals" ><i class="fa fa-pencil" aria-hidden="true"  readonly ></i> Chỉnh sửa bài viết</a>
+                                <a class="dropdown-item" onclick="deleteItem(@item.Id)"><i class="fa fa-trash" aria-hidden="true"></i> Xóa bài</a>
                                 <a class="dropdown-item" href="#"><i class="fa fa-window-close" aria-hidden="true"></i> Ẩn bài viết</a>
+                                
+                               }
                             </div>
-                        </div>
-                    </div>
-                    <div><strong>John Doe</strong></div>
+@* <div class="modal fade" id="exampleModals" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="panel-body">
-                    <img src="https://www.bootdey.com/image/500x333" class="img-responsive">
-                    <div class="card-body">
-                        <a href="#" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</a>
-                    </div>
-                    <div class="actions">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-link"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                            <button type="button" class="btn btn-link"><i class="fa fa-comments"></i> Comment</button>
+                <div class="modal-body">
+                    <div class="form-group row mb-3">
+                        <label for="title" class="col-sm-2 col-form-label">Tiêu đề:</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="title" class="form-control" id="title" value="@item.Title" placeholder="Tiêu đề">
                         </div>
-                        <div class="pull-right"><strong>1.789</strong> People View this</div>
                     </div>
+                    <div class="form-group row mb-3">
+                        <label for="title" class="col-sm-2 col-form-label">Danh mục:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="exampleFormControlSelect1">
+                               
+                                @foreach (var items in Model.Item1 )
+                                {
+                                if(@item.Id == @items.Id){
+                                <option value =@items.Id selected>@items.Name</option> 
 
-                </div>
-            </div>
-            <div class="panel panel-default mb-3 bg-white p-2 rounded-3">
-                <div class="panel-heading">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-rounded">
-                    <div class="pull-right text-right">
-                        <div class="dropdown">
-                            @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
-                            <button class="btn btn-secondary bg-transparent text-dark border-0" type="button" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-ellipsis-h"></i>
-                            </button>
-                            <div class="dropdown-menu" style="margin-left: -155px;">
-                                <a class="dropdown-item" href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Chỉnh sửa bài viết</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Xóa bài</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-window-close" aria-hidden="true"></i> Ẩn bài viết</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div><strong>John Doe</strong></div>
-                </div>
-                <div class="panel-body">
-                    <img src="https://www.bootdey.com/image/500x333" class="img-responsive">
-                    <div class="card-body">
-                        <a href="#" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</a>
-                    </div>
-                    <div class="actions">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-link"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                            <button type="button" class="btn btn-link"><i class="fa fa-comments"></i> Comment</button>
-                        </div>
-                        <div class="pull-right"><strong>1.789</strong> People View this</div>
-                    </div>
+                                }
+                                else{
+                                   <option value =@items.Id>@items.Name</option> 
 
-                </div>
-            </div>
-            <div class="panel panel-default mb-3 bg-white p-2 rounded-3">
-                <div class="panel-heading">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-rounded">
-                    <div class="pull-right text-right">
-                        <div class="dropdown">
-                            @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
-                            <button class="btn btn-secondary bg-transparent text-dark border-0" type="button" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-ellipsis-h"></i>
-                            </button>
-                            <div class="dropdown-menu" style="margin-left: -155px;">
-                                <a class="dropdown-item" href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Chỉnh sửa bài viết</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Xóa bài</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-window-close" aria-hidden="true"></i> Ẩn bài viết</a>
-                            </div>
+                                }
+                                }
+                            </select>
                         </div>
                     </div>
-                    <div><strong>John Doe</strong></div>
-                </div>
-                <div class="panel-body">
-                    <img src="https://www.bootdey.com/image/500x333" class="img-responsive">
-                    <div class="card-body">
-                        <a href="#" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</a>
-                    </div>
-                    <div class="actions">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-link"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                            <button type="button" class="btn btn-link"><i class="fa fa-comments"></i> Comment</button>
+                    <div class="form-group row mb-3">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Nội dung:</label>
+                        <div class="col-sm-10">
+                            <textarea name="content" id="content-homes" class="form-control w-100" rows="10"></textarea>
+                           
                         </div>
-                        <div class="pull-right"><strong>1.789</strong> People View this</div>
                     </div>
-
+                    <div class="form-group row mb-3">
+                        <label for="exampleFormControlFile1" class="col-sm-2 col-form-label">Ảnh bài viết:</label>
+                        <div class="col-sm-10">
+                            <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="submitForms()" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+           
         </div>
-        <div class="col-md-4">
-            <div class="card mb-3 border-0">
-                <div class="card-header bg-primary text-white pt-2 pb-1">
-                    <h5>Tin mới</h5>
-                </div>
-                <div class="card border-0 mt-2">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <img src="~/img/service-1.jpg" class="card-img-top" alt="Hình ảnh">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body p-0 pl-2">
-                                <div class="card-title">Thông báo: Đăng tin quảng bá sản phẩm/Dịch vụ tại Biztech Việt Nam 2023</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card border-0 mt-2">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <img src="~/img/service-1.jpg" class="card-img-top" alt="Hình ảnh">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body p-0 pl-2">
-                                <div class="card-title">Thông báo: Đăng tin quảng bá sản phẩm/Dịch vụ tại Biztech Việt Nam 2023</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card border-0 mt-2">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <img src="~/img/service-1.jpg" class="card-img-top" alt="Hình ảnh">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body p-0 pl-2">
-                                <div class="card-title">Thông báo: Đăng tin quảng bá sản phẩm/Dịch vụ tại Biztech Việt Nam 2023</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card border-0 mt-2">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <img src="~/img/service-1.jpg" class="card-img-top" alt="Hình ảnh">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body p-0 pl-2">
-                                <div class="card-title">Thông báo: Đăng tin quảng bá sản phẩm/Dịch vụ tại Biztech Việt Nam 2023</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-       @* <div class="col-lg-4">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    Home
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a href="#">Thực phẩm chức năng</a></li>
-                    <li class="list-group-item"><a href="#">Đồ trang điểm</a></li>
-                    <li class="list-group-item"><a href="#">Kem chống nắng</a></li>
-                </ul>
-            </div>
-        </div>*@
     </div>
-    <div class="row justify-content-center">
-        <div class="col-lg-8 activity p-2">
-            <nav aria-label="Page navigation">
+</div> *@
+                        </div>
+                    </div>
+                    <div><strong>@item?.User?.Username</strong>
+                        <div>
+                        <p style="font-family:'Times New Roman', Times, serif">@DateTime.Parse(item.CreatedDate.ToString()).ToString("dd/MM/yyyy HH:mm")</p>
+                    </div>
+                    </div>
+                </div>
+                <div class="panel-body d-flex flex-column">
+                        <a asp-controller="Post" asp-action="Details" asp-route-id=@item.Id class="card-text">@item.Title</a>
+                        @if (@item.Thumbnail.Trim() != "")
+                        {
+                            <div class="text-center">
+                                <img src="@Url.Content("~")/@item.Thumbnail"  class="img-responsive w-50 h-50">
 
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
+                            </div>
+                        }
+                        <div class="card-body">
+                    </div>
+                    <div class="actions">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-link"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                            <button type="button" class="btn btn-link"><i class="fa fa-comments"></i>                        
+                            <a asp-controller="Post" asp-action="Details" asp-route-id=@item.Id class="card-text">Comment</a>
+</button>
+                        </div>
+                    
 
-            </nav>
+                        <div class="pull-right"> <span class="stats-text">@item.Comments.Count Comment  </span><strong>@item.View</strong> People View this</div>
+                    </div>
+
+                </div>
+            </div>
+           }
+          }
+          else{
+            <h3> khong co bai viet nao </h3>
+          }
+        
+        @*    <div class="row">
+                <div class="col-md-12 mb-4">
+                    
+                    <div class="card">
+                        <div class="row mb-2 p-3">
+                            <div class="col-md-1">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="card-img-top" alt="...">
+                            </div>
+                            <div class="col-md-10 pl-0">
+                                <div class="card-text">Nguyễn Thị Lê</div>
+                            </div>
+                            <div class="col-md-1 pl-0">
+                                <div class="card-text"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+                            </div>
+                        </div>
+                        <a class="news-item d-block rounded" href="">
+                            <div class="text-center">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="card-img-top w-50" alt="...">
+                            </div>
+                            <div class="card-body">
+                                <span class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</span>
+                            </div>
+                        </a>
+                        <div class="actions">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-link"><i class="fa fa-comments"></i> Comment</button>
+                            </div>
+                            <div class="pull-right" style="padding: .375rem .75rem;">
+                                <strong>1.789</strong><i class="fa fa-eye" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="col-md-12 mb-4">
+                    <div class="card">
+                        <div class="row mb-2 p-3">
+                            <div class="col-md-1">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="card-img-top" alt="...">
+                            </div>
+                            <div class="col-md-10 pl-0">
+                                <div class="card-text">Nguyễn Thị Lê</div>
+                            </div>
+                            <div class="col-md-1 pl-0">
+                                <div class="card-text"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+                            </div>
+                        </div>
+                        <a class="news-item d-block rounded" href="">
+                            <div class="text-center">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="card-img-top w-50" alt="...">
+                            </div>
+                            <div class="card-body">
+                                <span class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</span>
+                            </div>
+                        </a>
+                        <div class="actions">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-link"><i class="fa fa-comments"></i> Comment</button>
+                            </div>
+                            <div class="pull-right" style="padding: .375rem .75rem;">
+                                <strong>1.789</strong><i class="fa fa-eye" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-md-12 mb-4">
+                    <div class="card">
+                    <div class="row mb-2 p-3">
+                        <div class="col-md-1">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="card-img-top" alt="...">
+                        </div>
+                        <div class="col-md-10 pl-0">
+                            <div class="card-text">Nguyễn Thị Lê</div>
+                        </div>
+                        <div class="col-md-1 pl-0">
+                            <div class="card-text"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+                        </div>
+                    </div>
+                        <a class="news-item d-block rounded" href="">
+                            <div class="text-center">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="card-img-top w-50" alt="...">
+                            </div>
+                            <div class="card-body">
+                                <span class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</span>
+                            </div>
+                        </a>
+                        <div class="actions">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-link"><i class="fa fa-comments"></i> Comment</button>
+                            </div>
+                            <div class="pull-right" style="padding: .375rem .75rem;">
+                                <strong>1.789</strong><i class="fa fa-eye" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+
+        </div>
+
+        <div class="col-lg-3 d-md-12 activity d-sm-none d-lg-block p-2">
+            <div class="category bg-white rounded-3">
+                <h3 class="title text-center">
+                    Danh mục
+                </h3>
+                <div class="sidebar__box flex-column d-flex align-items-center justify-content-center">
+                    @foreach (var item in Model.Item1){
+                        <div class="sidebar__item">
+                        <i class="fa fa-newspaper-o"></i>
+                        <a asp-controller="Home" action="Index" asp-route-category=@item.Id class="sidebar__link">
+                                @item.Name
+                        </a>
+                    </div>
+                    }
+                   
+                  
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tạo bài viết</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row mb-3">
+                        <label for="title" class="col-sm-2 col-form-label">Tiêu đề:</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="title" class="form-control" id="title" value="" placeholder="Tiêu đề">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-3">
+                        <label for="title" class="col-sm-2 col-form-label">Danh mục:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                @* <option value= '1' selected>1</option>
+                                <option value = '2'>2</option>
+                                <option value ="3">3</option>
+                                <option value ='4'>4</option>
+                                <option value = '5'>5</option> *@
+                                @foreach (var item in Model.Item1 )
+                                {
+                                   <option value =@item.Id >@item.Name</option> 
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-3">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Nội dung:</label>
+                        <div class="col-sm-10">
+                            <textarea name="content" id="content-home" class="form-control w-100" rows="10"></textarea>
+                            
+                        </div>
+                    </div>
+                    <div class="form-group row mb-3">
+                        <label for="exampleFormControlFile1" class="col-sm-2 col-form-label">Ảnh bài viết:</label>
+                        <div class="col-sm-10" id="imagePreview"></div>
+                        <div class="col-sm-10">
+                            <input type="file" name="file" accept="image/*" class="form-control-file" id="file">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="submitForm()" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+            @* <script src="~/wwwroot/js/libraryCustom.js"/> *@
+            <script>
+                 const deleteItem = (itemId) => {
+                    
+                    if (confirm("Bạn có muốn xóa bai viet này?")) {
+                 
+                    ajaxCustom(`/Home/Delete/${itemId}`,'delete',null,(value)=>{window.location.reload()},(value)=>{
+                        alert('xoa khong thanh cong')
+                    })
+                 
+                        }
+
+
+                 };
+                const submitForm = () => {
+                    var editor = CKEDITOR.instances['content-home'];
+                    const title = document.getElementById("title").value;
+                    const option = document.getElementById("exampleFormControlSelect1").value;
+                    const file = document.getElementById("file").files[0]
+
+                    var formData = new FormData();
+
+                    formData.append('file', file);
+                    formData.append('Title', title);
+                    formData.append('Content', editor.getData());
+                    formData.append('CategoryId', option);
+                    ajaxCustom("Home/Create","post",formData,(value)=>{window.location.reload()},(value)=>{alert('them khong thanh cong')})
+                }
+            </script>
+        </div>
+    </div>
+</div>
+
+
+     @* <script>
+               
+              
+            
+                const submitForms = () => {
+                    var editor = CKEDITOR.instances['content-home'];
+                    const title = document.getElementById("title").value;
+                    const option = document.getElementById("exampleFormControlSelect1").value;
+                    const file = document.getElementById("exampleFormControlFile1").files[0]
+
+                    var formData = new FormData();
+
+                    formData.append('file', file);
+                    formData.append('Title', title);
+                    formData.append('Content', editor.getData());
+                    formData.append('CategoryId', option);
+                    ajaxCustom("Home/Create","post",formData,(value)=>{window.location.reload()},(value)=>{alert('them khong thanh cong')})
+                }
+            </script> *@
+

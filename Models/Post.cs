@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
+
 
 namespace ReviewSocial.Models
 {
@@ -11,14 +11,14 @@ namespace ReviewSocial.Models
         {
             Comments = new HashSet<Comment>();
         }
-
+        #nullable enable    
         public int Id { get; set; }
-        public int? UserId { get; set; }
-        public string Title { get; set; }
-        public int? CategoryId { get; set; }
-        public string Content { get; set; }
+        public int UserId { get; set; }
+        public string? Title { get; set; }
+        public int CategoryId { get; set; }
+        public string? Content { get; set; }
         public DateTime? CreatedDate { get; set; }
-        public string Thumbnail { get; set; }
+        public string? Thumbnail { get; set; }
         public int? View { get; set; }
         public int? TotalReport { get; set; }
         public bool? Status { get; set; }

@@ -22,10 +22,13 @@ async function insertImage(file) {
 }
 
 CKEDITOR.replace("content-home");
+CKEDITOR.replace("content-homes");
 
 // Listen for image selection and insert into text editor
 imageInput.addEventListener("change", async function (e) {
     const file = e.target.files;
     insertImage(file);
 });
+
+
 

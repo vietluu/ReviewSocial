@@ -1,30 +1,45 @@
-﻿<!DOCTYPE html>
+﻿@using ReviewSocial.Repositories;
+@using Microsoft.AspNetCore.Http;
+@inject ICategoryRepository ICategoryRepository;
+@{
+    var categories = ICategoryRepository.GetAll();
+ViewData["Description"] = "Mạng xã hội chia sẻ đánh giá về mĩ phẩm";
+ViewData["Keywords"] = "son, sữa tắm,phấn, nước hoa";
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ReviewSocial</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <meta name="description" content="@ViewData["Description"]">
+    <meta name="keywords" content="@ViewData["Keywords"]">
+    <meta property="og:title" content="@ViewData["Title"]">
+    <meta property="og:description" content="@ViewData["Description"]">
+    <meta name="twitter:title" content="@ViewData["Title"]">
+    <meta name="twitter:description" content="@ViewData["Description"]">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link href="~/lib/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    @*<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">*@
+    @* <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> *@
     <link rel="stylesheet" href="~/ReviewSocial.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#" style="width: 35px;">
-                    <img src="~/img/logo.jpg" class="w-100 img-circle" />
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand" style="width: 35px;">
+                    <img src="~/img/Review.png" class="w-100 img-circle" />
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <form class="form-inline my-2 my-lg-0">
+                    <form class="form-inline my-2 my-lg-0" asp-controller="Home"  method="get" asp-action="Search">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" class="form-control" name="name" placeholder="Search">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-dark my-sm-0" type="submit"><i class="fa fa-search"></i></button>
                             </div>
@@ -33,40 +48,58 @@
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>*@
                     </form>
                     <ul class="navbar-nav m-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        @* <li class="nav-item active">
+                            <a class="nav-link" href="/home">Trang chủ <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Disabled</a>
-                        </li>
+                        @foreach(var category in categories as List<Category>)
+                        {
+                           <li class="nav-item">
+                            <a class="nav-link" href="/post/@category.Id">@category.Name</a>
+                           </li>
+                        } *@
+                        
                     </ul>
 
                     <div id="user-info" style="display: contents">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <span>Welcome, @User.Identity.Name</span>
-                            <form method="post" asp-action="Logout" class="form-inline">
-                                <button type="submit" class="btn btn-link">Logout</button>
-                            </form>
+                            <div class="dropdown">
+                                @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
+                                <a href="/user/profile" class="text-decoration-none bg-transparent text-dark border-0">
+                                    @{
+                                        var avatar = Context.Session.GetString("avatar") == null ? "/img/avatar.jpg" : "/img/" + Context.Session.GetString("avatar");
+                                    }
+                                    <img class="app-sidebar__user-avatar img-circle" src="@avatar" width="50" height="50" class="img-rounded img-circle cover-image">
+                                @*    <img src="~/img/avatar.jpg" style="width: 25px;" />*@
+                                </a>
+                                <span data-toggle="dropdown" aria-expanded="false">@User.Identity.Name</span>
+                                <div class="dropdown-menu" style="margin-left: -40px;">
+                                    <a class="dropdown-item" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Đăng xuất</a>
+                                    <a class="dropdown-item" href="/changepassword"><i class="fa fa-key" aria-hidden="true"></i> Đổi mật khẩu</a>
+                                </div>
+                            </div>
+                            @*<form method="post" asp-action="Logout" class="form-inline">
+                        <button type="submit" class="btn btn-link">Logout</button>
+                        </form>*@
+                            // <a href="#" class="nav-link pl-0 ml-2" title="Đăng nhập"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
                         }
                         else
                         {
-                            <div class="dropdown">
-                                @*<div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>*@
+                           @* <div class="dropdown">
+                                <div class="card-text" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></div>
                                 <button class="btn btn-secondary bg-transparent text-dark border-0" type="button" data-toggle="dropdown" aria-expanded="false">
                                     <img src="~/img/avatar.jpg" style="width: 25px;" />
                                 </button>
                                 <div class="dropdown-menu" style="margin-left: -125px;">
-                                    <a class="dropdown-item" href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> Đăng xuất</a>
-                                    <a class="dropdown-item" href="#"><i class="fa fa-key" aria-hidden="true"></i> Đổi mật khẩu</a>
+                                    <a class="dropdown-item" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Đăng xuất</a>
+                                    <a class="dropdown-item" href="/changepassword"><i class="fa fa-key" aria-hidden="true"></i> Đổi mật khẩu</a>
+                                   
                                 </div>
-                            </div>
-                           @* <img src="~/img/avatar.jpg" style="width: 25px;" />*@
-                            <a href="#" class="nav-link pl-0 ml-2" title="Đăng nhập"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
-                //linkName - action - controller ->
+                            </div>*@
+                            @* <img src="~/img/avatar.jpg" style="width: 25px;" />*@
+                            <a href="/login" class="nav-link pl-0 ml-2" title="Đăng nhập"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+                            
+                            @*  //linkName - action - controller ->*@
                             @*@Html.ActionLink("Login", "Login", "Account", null, new { @class = "nav-link" })*@
                         }
                     </div>
