@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.IO;
 
 namespace ReviewSocial.Controllers
 {
@@ -40,6 +41,7 @@ namespace ReviewSocial.Controllers
         [HttpGet]
         public IActionResult Search(string name, int? category)
         {
+
             IEnumerable<Category> cate = _cate.GetAll();
             IEnumerable<Post> post = null;
 
@@ -82,13 +84,15 @@ namespace ReviewSocial.Controllers
                     {
                         imagePath = await _post.UploadFile(file);
                     }
+                     if(file != null &&  Path.GetExtension(file.FileName) != "jpg"){
+                        return BadRequest();
+                    }
                     DateTime now = DateTime.Now;
                     var item = new Post
                     {
                         CategoryId = post.CategoryId,
                         Content = post.Content ?? "",
                         CreatedDate = now,
-                        // Like = 0,
                         Thumbnail = imagePath,
                         Title = post.Title ?? "",
                         UserId = Convert.ToInt32(HttpContext.Session.GetString("id")),
@@ -97,10 +101,8 @@ namespace ReviewSocial.Controllers
                     };
 
                     _post.Create(item);
-
-
+                
                     return Ok();
-
                 }
                 else
                 {
@@ -120,7 +122,11 @@ namespace ReviewSocial.Controllers
         {
             try
             {
+                
                 var item = _post.GetById(id);
+                 if(Convert.ToInt32(HttpContext.Session.GetString("id")) != item.UserId){
+                    return Forbid();
+                }
                 if (item == null)
                 {
                     return NotFound();

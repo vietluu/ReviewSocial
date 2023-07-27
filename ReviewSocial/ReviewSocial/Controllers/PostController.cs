@@ -41,6 +41,8 @@ namespace ReviewSocial.Controllers
         {
             var cate = _categoryRepository.GetAll();
             var post = _postRepository.GetAll();
+              // lay 5 gia tri lon nhat theo column
+             //dbContext.Table.OrderByDescending(x => x.Column).Take(5);
             return View(new Tuple<IEnumerable<Category>, IEnumerable<Post>>(cate, post));
             
         }
@@ -90,6 +92,7 @@ namespace ReviewSocial.Controllers
         {
             if (file != null && file.Length > 0)
             {
+               
                 // Lấy đường dẫn nơi bạn muốn lưu trữ ảnh trên server
                 var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "img/posts");
 
@@ -115,15 +118,14 @@ namespace ReviewSocial.Controllers
         [HttpPost]
         public IActionResult Create( Post post ,IFormFile file)
         {
+           
             try
             {
                 post.CreatedDate = DateTime.UtcNow;
-                // post.UpdatedDate = DateTime.UtcNow;
                 post.UserId = int.Parse(_contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Sid));
                 post.View = 0;
                 post.TotalReport = 0;
                 post.Status = true;
-                // post.Like = 0;
                 post.Thumbnail = UploadFile(file);
                 _postRepository.Create(post);
                 return Ok(post);
@@ -134,19 +136,17 @@ namespace ReviewSocial.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Comment(Comment comment)
+        public IActionResult Comment(Comment comment,IFormFile file)
         {
             try
             {
                 var item = new Comment();
                 item.CreatedDate = DateTime.UtcNow;
-                // item.UpdatedDate = DateTime.UtcNow;
                 item.UserId = int.Parse(_contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Sid));
 
                 item.PostsId = comment.PostsId;
                 item.Content = comment.Content;
-                // post.Like = 0;
-
+                item.simage = UploadFile(file) ?? "";
                 _comment.Create(item);
                 return Ok();;
             }
@@ -160,7 +160,11 @@ namespace ReviewSocial.Controllers
         {
             try
             {
+
                 var item = _comment.GetById(id);
+                if(Convert.ToInt32(HttpContext.Session.GetString("id")) != item.UserId){
+                    return Forbid();
+                }
                 if (item == null)
                 {
                     return NotFound();

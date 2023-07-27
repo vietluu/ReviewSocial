@@ -6,6 +6,9 @@ using ReviewSocial.Repositories;
 using System.IO;
 using System;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace ReviewSocial.Controllers
 {
@@ -24,9 +27,13 @@ namespace ReviewSocial.Controllers
             _contextAccessor = contextAccessor;
         }
         
-        public IActionResult Profile()
+        public async Task<IActionResult> ProfileAsync()
         {
-            
+             if (HttpContext.Session.GetString("id") == null)
+            {
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                return RedirectToRoute("login");
+            }
             return View(_postRepository.GetByUser(int.Parse(_contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Sid))));
         }
 

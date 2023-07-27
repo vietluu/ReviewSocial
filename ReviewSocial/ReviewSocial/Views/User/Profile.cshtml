@@ -98,7 +98,12 @@
                                                     </div>
                                                 </div>  
                                                 <div class="timeline-content">
-                                                    <p>@Html.Raw(@item.Content)</p>
+                                                    <p>@item.Title</p>
+                                                    <div class="image__field">
+                                                            <div class="w-50 mx-auto">
+                                                                <img src="@Url.Content("~/")@item.Thumbnail" alt="image" />
+                                                            </div>   
+                                                    </div>
                                                 </div>
                                                 <div class="timeline-likes">
                                                     <div class="stats-right">        
@@ -108,17 +113,16 @@
                                                     </div>
                                                     <div class="stats">
                                                         <span class="fa-stack fa-fw stats-icon">
-                                                            <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                                                            @* <i class="fa fa-circle fa-stack-2x text-primary"></i> *@
                                                             <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
                                                         </span>
-                                                        <span class="stats-total">4.3k</span>
+                                                      
                                                     </div>
                                                 </div>
                                                 <div class="timeline-footer">
-                                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
+                                                    <a href="/Post/Details/@item.Id" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
                                                 </div>
-                                                <div class="timeline-comment-box">
+                                                @* <div class="timeline-comment-box">
                                                     <div class="user">
                                                         @{
                                                             var avatarcomment = Context.Session.GetString("avatar") == null ? "/img/avatar.jpg" : "/img/" + Context.Session.GetString("avatar");
@@ -135,7 +139,7 @@
                                                             </div>
                                                         </form>
                                                     </div>
-                                                </div>
+                                                </div> *@
                                             </div>
                                             <!-- end timeline-body -->
                                         </li>

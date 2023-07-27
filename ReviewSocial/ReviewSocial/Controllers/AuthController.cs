@@ -176,6 +176,7 @@ namespace ReviewSocial.Controllers
             user.CreatedDate = DateTime.UtcNow;
             user.Role = "User";
             user.Status = true;
+            user.Avatar = "/avatar.jpg";
             _userRepository.Create(user);
 
             return RedirectToAction("Login", "Auth");

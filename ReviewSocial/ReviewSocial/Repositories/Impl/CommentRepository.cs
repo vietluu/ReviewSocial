@@ -13,14 +13,14 @@ namespace ReviewSocial.Repositories.Impl
     public class CommentRepository : ICommentRepository
     {
         private readonly db_ReviewSocialContext _context;
-        
+
         public CommentRepository(db_ReviewSocialContext context)
 
         {
             _context = context;
         }
 
-       
+
         public Comment Create(Comment comment)
         {
             _context.Comments.Add(comment);
@@ -28,19 +28,21 @@ namespace ReviewSocial.Repositories.Impl
             return comment;
         }
 
-             public  Comment GetById(int id){
+        public Comment GetById(int id)
+        {
             return _context.Comments.Find(id);
         }
-        public int CountByPost(int id){
+        public int CountByPost(int id)
+        {
             return _context.Comments.Where(p => p.PostsId == id).Count();
 
         }
 
-         public IEnumerable<Comment> GetByPost(int id)
+        public IEnumerable<Comment> GetByPost(int id)
         {
-            return _context.Comments.Where(p => p.PostsId== id).Include(p => p.Posts).Include(p => p.User).ToList();
+            return _context.Comments.Where(p => p.PostsId == id).Include(p => p.Posts).Include(p => p.User).ToList();
         }
-       
+
         public void Update(Comment comment)
         {
             _context.Comments.Update(comment);
@@ -56,6 +58,6 @@ namespace ReviewSocial.Repositories.Impl
             }
 
         }
-    
+
     }
 }

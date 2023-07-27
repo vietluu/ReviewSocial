@@ -13,7 +13,7 @@ namespace ReviewSocial.Repositories.Impl
     public class PostRepository : IPostRepository
     {
         private readonly db_ReviewSocialContext _context;
-        
+
         public PostRepository(db_ReviewSocialContext context)
 
         {
@@ -22,7 +22,7 @@ namespace ReviewSocial.Repositories.Impl
 
         public List<Post> GetAll()
         {
-           return _context.Posts.Include(c => c.User).Include(p => p.Comments).Include(p=>p.Category).ToList();
+            return _context.Posts.Include(c => c.User).Include(p => p.Comments).Include(p => p.Category).ToList();
         }
         public Post Create(Post post)
         {
@@ -30,22 +30,23 @@ namespace ReviewSocial.Repositories.Impl
             _context.SaveChanges();
             return post;
         }
-         public IEnumerable<Post> GetByUser(int id){
+        public IEnumerable<Post> GetByUser(int id)
+        {
 
-         return _context.Posts.Where(p => p.UserId == id).Include(p => p.Category).Include(p => p.User).Include(p => p.Comments).ToList();
+            return _context.Posts.Where(p => p.UserId == id).Include(p => p.Category).Include(p => p.User).Include(p => p.Comments).ToList();
 
-         }
+        }
         public Post GetById(int id)
         {
             return _context.Posts.Include(p => p.User).SingleOrDefault(p => p.Id == id);
         }
-         public IEnumerable<Post> GetByCategory(int id)
+        public IEnumerable<Post> GetByCategory(int id)
         {
             return _context.Posts.Where(p => p.CategoryId == id).Include(p => p.Category).Include(p => p.User).ToList();
         }
         public IEnumerable<Post> GetByTitle(string title)
         {
-            return _context.Posts.Where(p => p.Title.Contains(title)).Include(p=>p.User).Include(p=>p.Comments).ToList();
+            return _context.Posts.Where(p => p.Title.Contains(title)).Include(p => p.User).Include(p => p.Comments).ToList();
         }
         public bool ExistsByTitle(string title)
         {
@@ -66,23 +67,25 @@ namespace ReviewSocial.Repositories.Impl
             }
 
         }
-         public async Task<string> UploadFile(IFormFile file)
+        public async Task<string> UploadFile(IFormFile file)
         {
 
-           if(file != null){
-
+            if (file != null)
+            {
+                
                 var fileName = DateTime.UtcNow.Ticks.ToString() + Path.GetExtension(Path.GetFileName(file.FileName));
                 var filePath = Path.Combine("wwwroot", "img", fileName);
-            if (!File.Exists(filePath))
-            {
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                if (!File.Exists(filePath))
                 {
-                    await file.CopyToAsync(fileStream);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
                 }
+                return $"img/{fileName}";
             }
-            return $"img/{fileName}";
-           }
-           else{
+            else
+            {
                 return "";
             }
         }

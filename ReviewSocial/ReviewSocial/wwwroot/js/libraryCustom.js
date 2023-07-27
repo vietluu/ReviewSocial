@@ -43,7 +43,7 @@ imageIn.addEventListener("change", async function (e) {
 )
 const imagePreview2 = document.getElementById("imagePreview2");
 const imageIn2 = document.getElementById("file2");
-async function preview(file) {
+async function preview2(file) {
     while (imagePreview2?.firstChild) {
         imagePreview2.removeChild(imagePreview2.firstChild);
     }
@@ -57,8 +57,11 @@ async function preview(file) {
         };
     }
 }
-imageIn2.addEventListener("change", async function (e) {
+imageIn2?.addEventListener("change", async function (e) {
     const file = e.target.files;
-    preview(file);
+    preview2(file);
 }
 )
+
+
+
