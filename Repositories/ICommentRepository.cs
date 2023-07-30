@@ -9,9 +9,9 @@ namespace ReviewSocial.Repositories
 {
     public interface ICommentRepository
     {
-        
+
         public IEnumerable<Comment> GetByPost(int id);
-            Comment GetById(int id);
+        Comment GetById(int id);
         int CountByPost(int id);
 
         Comment Create(Comment comment);

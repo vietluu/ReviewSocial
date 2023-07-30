@@ -19,17 +19,17 @@ namespace ReviewSocial.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public UserController(IHttpContextAccessor contextAccessor,IUserRepository userRepository, IPostRepository postRepository, IWebHostEnvironment webHostEnvironment) 
+        public UserController(IHttpContextAccessor contextAccessor, IUserRepository userRepository, IPostRepository postRepository, IWebHostEnvironment webHostEnvironment)
         {
             _userRepository = userRepository;
             _postRepository = postRepository;
             _webHostEnvironment = webHostEnvironment;
             _contextAccessor = contextAccessor;
         }
-        
+
         public async Task<IActionResult> ProfileAsync()
         {
-             if (HttpContext.Session.GetString("id") == null)
+            if (HttpContext.Session.GetString("id") == null)
             {
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                 return RedirectToRoute("login");

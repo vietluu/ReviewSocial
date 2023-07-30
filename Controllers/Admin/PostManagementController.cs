@@ -34,28 +34,30 @@ namespace ReviewSocial.Controllers.Admin
             return View(view + "Index.cshtml", _postRepository.GetAll());
         }
 
-     
-             public async Task<string> UploadFile(IFormFile file)
+
+        public async Task<string> UploadFile(IFormFile file)
         {
 
-           if(file != null){
+            if (file != null)
+            {
 
                 var fileName = DateTime.UtcNow.Ticks.ToString() + Path.GetExtension(Path.GetFileName(file.FileName));
                 Console.WriteLine(fileName);
                 var filePath = Path.Combine("wwwroot", "img", fileName);
-            
+
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await file.CopyToAsync(fileStream);
                 }
-            
-            return $"img/{fileName}";
-           }
-           else{
+
+                return $"img/{fileName}";
+            }
+            else
+            {
                 return "";
             }
         }
-        
+
 
         [HttpGet]
         public IActionResult Create()
@@ -83,8 +85,8 @@ namespace ReviewSocial.Controllers.Admin
             };
 
             _postRepository.Create(item);
-                return RedirectToRoute("admin/post");
-            
+            return RedirectToRoute("admin/post");
+
 
             ViewBag.Categories = _categoryRepository.GetAll();
             return View(view + "CreateAndUpdate.cshtml");

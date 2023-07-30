@@ -12,7 +12,7 @@ namespace ReviewSocial.Repositories
         List<Post> GetAll();
         Post GetById(int id);
         IEnumerable<Post> GetByTitle(string name);
-        bool ExistsByTitle (string name);
+        bool ExistsByTitle(string name);
         public IEnumerable<Post> GetByCategory(int id);
         public IEnumerable<Post> GetByUser(int id);
 

@@ -9,7 +9,7 @@ namespace ReviewSocial.Repositories.Impl
     public class CategoryRepository : ICategoryRepository
     {
         private readonly Db_ReviewSocialContext _context;
-        
+
         public CategoryRepository(Db_ReviewSocialContext context)
 
         {
@@ -18,7 +18,7 @@ namespace ReviewSocial.Repositories.Impl
 
         public List<Category> GetAll()
         {
-           return _context.Categories.Include(c => c.Posts).ToList();
+            return _context.Categories.Include(c => c.Posts).ToList();
         }
         public Category Create(Category category)
         {

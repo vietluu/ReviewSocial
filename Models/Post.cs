@@ -11,7 +11,7 @@ namespace ReviewSocial.Models
         {
             Comments = new HashSet<Comment>();
         }
-        #nullable enable    
+#nullable enable
         public int Id { get; set; }
         public int UserId { get; set; }
         public string? Title { get; set; }

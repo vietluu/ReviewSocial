@@ -72,7 +72,7 @@ namespace ReviewSocial.Repositories.Impl
 
             if (file != null)
             {
-                
+
                 var fileName = DateTime.UtcNow.Ticks.ToString() + Path.GetExtension(Path.GetFileName(file.FileName));
                 var filePath = Path.Combine("wwwroot", "img", fileName);
                 if (!File.Exists(filePath))

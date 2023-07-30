@@ -9,6 +9,6 @@ namespace ReviewSocial.Repositories
         public User Create(User user);
         void Update(User user);
         public User GetUserByEmail(string email);
-        public User GetUserByEmailAndPassword(string email,string password);
+        public User GetUserByEmailAndPassword(string email, string password);
     }
 }

@@ -19,9 +19,9 @@ namespace ReviewSocial.Controllers
         private readonly ICommentRepository _comment;
         private readonly string view = "~/Views/Admin/PostManagement/";
 
-        public PostController(IPostRepository postRepository, 
-            ICategoryRepository categoryRepository, 
-            IHttpContextAccessor contextAccessor, 
+        public PostController(IPostRepository postRepository,
+            ICategoryRepository categoryRepository,
+            IHttpContextAccessor contextAccessor,
             IWebHostEnvironment webHostEnvironment,
             ICommentRepository comment)
         {
@@ -37,10 +37,10 @@ namespace ReviewSocial.Controllers
         {
             var cate = _categoryRepository.GetAll();
             var post = _postRepository.GetAll();
-              // lay 5 gia tri lon nhat theo column
-             //dbContext.Table.OrderByDescending(x => x.Column).Take(5);
+            // lay 5 gia tri lon nhat theo column
+            //dbContext.Table.OrderByDescending(x => x.Column).Take(5);
             return View(new Tuple<IEnumerable<Category>, IEnumerable<Post>>(cate, post));
-            
+
         }
         public async Task<IActionResult> DetailsAsync(int id)
         {
@@ -56,7 +56,7 @@ namespace ReviewSocial.Controllers
             var post = _postRepository.GetById(id);
             return View(new Tuple<Post, IEnumerable<Comment>>(post, cmt));
 
-            
+
         }
 
 
@@ -93,7 +93,7 @@ namespace ReviewSocial.Controllers
         {
             if (file != null && file.Length > 0)
             {
-               
+
                 // Lấy đường dẫn nơi bạn muốn lưu trữ ảnh trên server
                 var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "img/posts");
 
@@ -117,9 +117,9 @@ namespace ReviewSocial.Controllers
             return "";
         }
         [HttpPost]
-        public IActionResult Create( Post post ,IFormFile file)
+        public IActionResult Create(Post post, IFormFile file)
         {
-           
+
             try
             {
                 post.CreatedDate = DateTime.UtcNow;
@@ -137,7 +137,7 @@ namespace ReviewSocial.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Comment(Comment comment,IFormFile file)
+        public IActionResult Comment(Comment comment, IFormFile file)
         {
             try
             {
@@ -149,21 +149,22 @@ namespace ReviewSocial.Controllers
                 item.Content = comment.Content;
                 item.simage = UploadFile(file) ?? "";
                 _comment.Create(item);
-                return Ok();;
+                return Ok(); ;
             }
             catch
             {
                 return BadRequest();
             }
         }
-          [HttpDelete]
+        [HttpDelete]
         public IActionResult Delete(int id)
         {
             try
             {
 
                 var item = _comment.GetById(id);
-                if(Convert.ToInt32(HttpContext.Session.GetString("id")) != item.UserId){
+                if (Convert.ToInt32(HttpContext.Session.GetString("id")) != item.UserId)
+                {
                     return BadRequest();
                 }
                 if (item == null)
@@ -181,11 +182,13 @@ namespace ReviewSocial.Controllers
             }
         }
         [HttpPost]
-        public IActionResult UpdateCmt(string content ,int id){
+        public IActionResult UpdateCmt(string content, int id)
+        {
             try
             {
                 var item = _comment.GetById(id);
-                 if(item.UserId != Convert.ToInt32(HttpContext.Session.GetString("id"))){
+                if (item.UserId != Convert.ToInt32(HttpContext.Session.GetString("id")))
+                {
                     return BadRequest();
                 }
                 item.Content = content;
@@ -197,7 +200,7 @@ namespace ReviewSocial.Controllers
                 return BadRequest();
             }
         }
-        
+
 
     }
 }

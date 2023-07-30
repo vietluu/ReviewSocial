@@ -71,8 +71,8 @@ namespace ReviewSocial.Controllers
             HttpContext.Session.SetString("id", user.Id.ToString());
             HttpContext.Session.SetString("email", user.Email);
             HttpContext.Session.SetString("username", user.Username);
-            if (user.Avatar != null) 
-            HttpContext.Session.SetString("avatar", user.Avatar);
+            if (user.Avatar != null)
+                HttpContext.Session.SetString("avatar", user.Avatar);
             if (user.Role == "Admin")
             {
                 return RedirectToRoute("admin");

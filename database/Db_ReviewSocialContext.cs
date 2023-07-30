@@ -9,12 +9,12 @@ namespace ReviewSocial.Database
 {
     public partial class Db_ReviewSocialContext : DbContext
     {
-         public Db_ReviewSocialContext(DbContextOptions<Db_ReviewSocialContext> options) : base(options)
+        public Db_ReviewSocialContext(DbContextOptions<Db_ReviewSocialContext> options) : base(options)
         {
         }
 
         // Keep the new member with the same name
-      
+
 
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }

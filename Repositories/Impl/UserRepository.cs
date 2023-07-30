@@ -33,7 +33,7 @@ namespace ReviewSocial.Repositories.Impl
 
         public User GetUserByEmailAndPassword(string email, string password)
         {
-            return _context.Users.SingleOrDefault(u =>u.Email == email && u.Password == password);
+            return _context.Users.SingleOrDefault(u => u.Email == email && u.Password == password);
         }
 
         public void Update(User user)

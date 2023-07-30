@@ -29,7 +29,6 @@ namespace ReviewSocial.Controllers
         [HttpGet]
         public async Task<IActionResult> IndexAsync()
         {
-        
             var cate = _cate.GetAll();
             var post = _post.GetAll();
             return View(new Tuple<IEnumerable<Category>, IEnumerable<Post>>(cate, post));
@@ -80,7 +79,8 @@ namespace ReviewSocial.Controllers
                     {
                         imagePath = await _post.UploadFile(file);
                     }
-                     if(file != null &&  Path.GetExtension(file.FileName) != "jpg"){
+                    if (file != null && Path.GetExtension(file.FileName) != "jpg")
+                    {
                         return BadRequest();
                     }
                     DateTime now = DateTime.Now;
@@ -97,7 +97,7 @@ namespace ReviewSocial.Controllers
                     };
 
                     _post.Create(item);
-                
+
                     return Ok();
                 }
                 else
@@ -118,9 +118,10 @@ namespace ReviewSocial.Controllers
         {
             try
             {
-                
+
                 var item = _post.GetById(id);
-                 if(Convert.ToInt32(HttpContext.Session.GetString("id")) != item.UserId){
+                if (Convert.ToInt32(HttpContext.Session.GetString("id")) != item.UserId)
+                {
                     return BadRequest();
                 }
                 if (item == null)
@@ -143,7 +144,8 @@ namespace ReviewSocial.Controllers
             try
             {
                 var item = _post.GetById(post.Id);
-                if(item.UserId != Convert.ToInt32(HttpContext.Session.GetString("id"))){
+                if (item.UserId != Convert.ToInt32(HttpContext.Session.GetString("id")))
+                {
                     return BadRequest();
                 }
                 var imagePath = "";
